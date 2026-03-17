@@ -192,7 +192,6 @@ public class GameModel {
     }
 
     public boolean isGameOver() {
-        if(1==1)return true;
         int[][] originalBoard = new int[size][size];
         System.arraycopy(board, 0, originalBoard, 0, size);
         int originalScore = score;

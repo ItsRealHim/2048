@@ -38,9 +38,7 @@ public class GameActivity extends AppCompatActivity {
     private GestureDetectorCompat gestureDetector;
 
     // --- High Score Persistence ---
-    private SharedPreferences sharedPreferences;
     private int highScore;
-    private static final String HIGH_SCORE_KEY = "high_score";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +55,16 @@ public class GameActivity extends AppCompatActivity {
         btnNewGame = findViewById(R.id.btnNewGame);
 
         // Load the saved high score
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        highScore = sharedPreferences.getInt(HIGH_SCORE_KEY, 0);
-
+        FirebaseUser user = refAuth.getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
+            refPlayer.child(uid).child("highScore").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    highScore = task.getResult().getValue(Integer.class);
+                    tvHighScore.setText(String.valueOf(highScore));
+                }
+            });
+        }
         // Setup the adapter with the board from our model
         tileAdapter = new TileAdapter(this, gameModel.getBoard());
         gameGrid.setAdapter(tileAdapter);
@@ -104,6 +109,7 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * Handles the swipe gesture, delegates logic to the model, and updates the UI if needed.
+     *
      * @param direction The direction of the swipe.
      */
     private void handleSwipe(String direction) {
@@ -138,9 +144,6 @@ public class GameActivity extends AppCompatActivity {
         if (currentScore > highScore) {
             highScore = currentScore;
             tvHighScore.setText(String.valueOf(highScore));
-
-            // Save the new high score locally
-            sharedPreferences.edit().putInt(HIGH_SCORE_KEY, highScore).apply();
 
             // Save the new high score to Firebase using FBRef
             FirebaseUser user = refAuth.getCurrentUser();
