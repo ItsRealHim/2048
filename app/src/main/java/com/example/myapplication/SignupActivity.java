@@ -3,7 +3,6 @@ package com.example.myapplication;
 import static com.example.myapplication.FBRef.refAuth;
 import static com.example.myapplication.FBRef.refPlayer;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,9 +29,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 

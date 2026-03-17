@@ -6,7 +6,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 public class TileAdapter extends BaseAdapter {
 
@@ -70,18 +69,30 @@ public class TileAdapter extends BaseAdapter {
     // Maps tile values to their specific background colors (this method is unchanged)
     private int getTileColor(int value) {
         switch (value) {
-            case 2:    return Color.parseColor("#EEE4DA");
-            case 4:    return Color.parseColor("#EDE0C8");
-            case 8:    return Color.parseColor("#F2B179");
-            case 16:   return Color.parseColor("#F59563");
-            case 32:   return Color.parseColor("#F67C5F");
-            case 64:   return Color.parseColor("#F65E3B");
-            case 128:  return Color.parseColor("#EDCF72");
-            case 256:  return Color.parseColor("#EDCC61");
-            case 512:  return Color.parseColor("#EDC850");
-            case 1024: return Color.parseColor("#EDC53F");
-            case 2048: return Color.parseColor("#EDC22E");
-            default:   return Color.LTGRAY; // For values > 2048
+            case 2:
+                return Color.parseColor("#EEE4DA");
+            case 4:
+                return Color.parseColor("#EDE0C8");
+            case 8:
+                return Color.parseColor("#F2B179");
+            case 16:
+                return Color.parseColor("#F59563");
+            case 32:
+                return Color.parseColor("#F67C5F");
+            case 64:
+                return Color.parseColor("#F65E3B");
+            case 128:
+                return Color.parseColor("#EDCF72");
+            case 256:
+                return Color.parseColor("#EDCC61");
+            case 512:
+                return Color.parseColor("#EDC850");
+            case 1024:
+                return Color.parseColor("#EDC53F");
+            case 2048:
+                return Color.parseColor("#EDC22E");
+            default:
+                return Color.LTGRAY; // For values > 2048
         }
     }
 }

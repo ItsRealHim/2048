@@ -72,7 +72,7 @@ public class GameModel {
 
         // Create a copy of the board to check for changes later
         int[][] preMoveBoard = new int[size][size];
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             System.arraycopy(board[i], 0, preMoveBoard[i], 0, size);
         }
 
@@ -110,7 +110,7 @@ public class GameModel {
                     break;
                 }
             }
-            if(moved) break;
+            if (moved) break;
         }
 
         // If a move was successful, add a new tile
@@ -174,6 +174,7 @@ public class GameModel {
     /**
      * Rotates the board 90 degrees clockwise a specified number of times.
      * Used to handle UP and DOWN swipes.
+     *
      * @param times Number of 90-degree rotations.
      */
     private void rotateBoard(int times) {
@@ -196,10 +197,10 @@ public class GameModel {
         System.arraycopy(board, 0, originalBoard, 0, size);
         int originalScore = score;
         boolean over = true;
-        if(handleSwipe("UP") ||
-           handleSwipe("DOWN") ||
-           handleSwipe("LEFT") ||
-           handleSwipe("RIGHT")) {
+        if (handleSwipe("UP") ||
+                handleSwipe("DOWN") ||
+                handleSwipe("LEFT") ||
+                handleSwipe("RIGHT")) {
             over = false;
         }
         board = originalBoard;

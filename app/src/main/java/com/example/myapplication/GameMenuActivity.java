@@ -56,7 +56,7 @@ public class GameMenuActivity extends AppCompatActivity implements View.OnClickL
             Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
             finish();
-        } else if(viewId == R.id.cvHighScores) {
+        } else if (viewId == R.id.cvHighScores) {
             Intent intent = new Intent(this, HighScoresActivity.class);
             startActivity(intent);
         } else if (viewId == R.id.playgame) {

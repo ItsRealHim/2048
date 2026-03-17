@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import static com.example.myapplication.FBRef.refAuth;
-import static com.example.myapplication.FBRef.refPlayer;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -28,7 +27,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SigninActivity extends AppCompatActivity implements View.OnClickListener {
 

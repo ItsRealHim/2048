@@ -7,9 +7,10 @@ import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Binder; // Import Binder
+import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
+
 import androidx.annotation.Nullable;
 
 public class MusicService extends Service implements AudioManager.OnAudioFocusChangeListener {
@@ -92,7 +93,7 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
                 if (mediaPlayer == null) {
                     // Re-initialize if it was released
                     onCreate();
-                    if(requestAudioFocus()) mediaPlayer.start();
+                    if (requestAudioFocus()) mediaPlayer.start();
                 } else if (!mediaPlayer.isPlaying()) {
                     mediaPlayer.start();
                 }

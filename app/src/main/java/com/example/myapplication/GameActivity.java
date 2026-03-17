@@ -3,10 +3,8 @@ package com.example.myapplication;
 import static com.example.myapplication.FBRef.refAuth;
 import static com.example.myapplication.FBRef.refPlayer;
 
-import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -97,6 +95,23 @@ public class GameActivity extends AppCompatActivity {
         tts.setAudioAttributes(audioAttributes);
     }
 
+    private void incrementGameCount() {
+        // Load the saved games played
+        FirebaseUser user = refAuth.getCurrentUser();
+        if (user == null) {
+            return;
+        }
+        String uid = user.getUid();
+        refPlayer.child(uid).child("gamesPlayed").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                int gamesPlayed = task.getResult().getValue(Integer.class);
+                gamesPlayed++;
+                refPlayer.child(uid).child("gamesPlayed").setValue(gamesPlayed);
+            }
+        });
+
+    }
+
     /**
      * Resets the game by calling the model's startNewGame method and updating the UI.
      */
@@ -131,6 +146,7 @@ public class GameActivity extends AppCompatActivity {
                 tts.speak("Game Over", TextToSpeech.QUEUE_FLUSH, null, "game_over_id");
             }
             Snackbar.make(findViewById(android.R.id.content), "Game Over!", Snackbar.LENGTH_SHORT).show();
+            incrementGameCount();
         }
     }
 
