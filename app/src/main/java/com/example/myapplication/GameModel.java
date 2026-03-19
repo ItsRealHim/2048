@@ -85,7 +85,7 @@ public class GameModel {
             rotateBoard(1); // 90° clockwise
         }
         if (needReverse) {
-            reverseRows();
+            mirrorRows();
         }
 
         // Main logic: slide and merge (assumes LEFT move)
@@ -93,7 +93,7 @@ public class GameModel {
 
         // Undo transformations (reverse order!)
         if (needReverse) {
-            reverseRows();
+            mirrorRows();
         }
         if (needRotate) {
             rotateBoard(3); // 270° to restore original orientation
@@ -155,10 +155,11 @@ public class GameModel {
     }
 
     /**
-     * Reverses the elements in each row of the board.
-     * Used to handle RIGHT swipes.
+     * mirrors the elements in each row of the board.
+     * with the middle being the axis of symmetry.
+     * For example, in a 4x4 board, the first and fourth elements of each row are swapped, as are the second and third elements.
      */
-    private void reverseRows() {
+    private void mirrorRows() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size / 2; j++) {
                 int temp = board[i][j];
