@@ -132,7 +132,7 @@ public class GameModel {
             }
 
             // 2. Merge adjacent tiles
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < size - 1; j++) {
                 if (tempRow[j] != 0 && tempRow[j] == tempRow[j + 1]) {
                     tempRow[j] *= 2;
                     score += tempRow[j]; // Update score
@@ -160,10 +160,10 @@ public class GameModel {
      */
     private void reverseRows() {
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < 2; j++) {
+            for (int j = 0; j < size / 2; j++) {
                 int temp = board[i][j];
-                board[i][j] = board[i][3 - j];
-                board[i][3 - j] = temp;
+                board[i][j] = board[i][size - 1 - j];
+                board[i][size - 1 - j] = temp;
             }
         }
     }
@@ -179,7 +179,7 @@ public class GameModel {
             int[][] rotatedBoard = new int[size][size];
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
-                    rotatedBoard[j][3 - i] = board[i][j];
+                    rotatedBoard[j][size - 1 - i] = board[i][j];
                 }
             }
             // Copy rotated board back to original
