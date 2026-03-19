@@ -100,9 +100,32 @@ public class GameModel {
         if (mirror) mirrorRows();
         if (rotations != 0) rotateBoard((4 - rotations) % 4);
 
-        // Add a new tile if any move happened
+        // Transform TileChange coordinates back to original space
+        for (TileChange change : changes) {
+            if (change.type != TileChange.Type.NEW) {
+                // Apply inverse transformations to coordinates
+                int[] fromCoords = {change.fromRow, change.fromCol};
+                int[] toCoords = {change.toRow, change.toCol};
+                
+                if (rotations != 0) {
+                    fromCoords = untransformCoordsByRotation(fromCoords, rotations);
+                    toCoords = untransformCoordsByRotation(toCoords, rotations);
+                }
+                if (mirror) {
+                    fromCoords = untransformCoordsByMirror(fromCoords);
+                    toCoords = untransformCoordsByMirror(toCoords);
+                }
+                
+                // Create new TileChange with corrected coordinates
+                changes.set(changes.indexOf(change), 
+                    new TileChange(fromCoords[0], fromCoords[1], toCoords[0], toCoords[1], 
+                        change.oldValue, change.newValue, change.type));
+            }
+        }
+
+        // Add a new tile if any move happened (unless in test mode)
         boolean moved = !boardsEqual(preMove, board);
-        if (moved) {
+        if (moved && !testMode) {
             TileChange newTile = addNewTile();
             if (newTile != null) changes.add(newTile);
         }
@@ -113,46 +136,65 @@ public class GameModel {
     /**
      * Slides & merges a single row and returns TileChanges
      */
-    private List<TileChange> slideAndMergeRow(int rowIndex, int[] originalRow) {
+    private List<TileChange> slideAndMergeRow(int rowIndex, int[] oldRow) {
         List<TileChange> changes = new ArrayList<>();
         int[] temp = new int[SIZE];
         int pos = 0;
 
-        // 1. Slide non-zero tiles
+        // 1. Slide non-zero tiles and track original positions
+        int[] tempOriginCol = new int[SIZE];
         for (int j = 0; j < SIZE; j++) {
             if (board[rowIndex][j] != 0) {
-                temp[pos++] = board[rowIndex][j];
+                temp[pos] = board[rowIndex][j];
+                tempOriginCol[pos] = j;
+                pos++;
             }
         }
 
-        // 2. Merge tiles
+        // 2. Merge tiles and track which tiles were merged
+        boolean[] merged = new boolean[SIZE];
         for (int j = 0; j < SIZE - 1; j++) {
             if (temp[j] != 0 && temp[j] == temp[j + 1]) {
                 temp[j] *= 2;
                 score += temp[j];
                 temp[j + 1] = 0;
+                merged[j] = true;
             }
         }
 
-        // 3. Slide again to close gaps
+        // 3. Slide again to close gaps and track final positions
         int[] finalRow = new int[SIZE];
+        int[] finalOriginCol = new int[SIZE];
+        boolean[] finalMerged = new boolean[SIZE];
         pos = 0;
         for (int j = 0; j < SIZE; j++) {
-            if (temp[j] != 0) finalRow[pos++] = temp[j];
+            if (temp[j] != 0) {
+                finalRow[pos] = temp[j];
+                finalOriginCol[pos] = tempOriginCol[j];
+                finalMerged[pos] = merged[j];
+                pos++;
+            }
         }
 
-        // 4. Record TileChanges
-        int targetCol = 0;
-        for (int j = 0; j < SIZE; j++) {
-            if (originalRow[j] != 0) {
-                int oldValue = originalRow[j];
-                int newValue = finalRow[targetCol];
-                if (oldValue != newValue || j != targetCol) {
-                    TileChange.Type type = oldValue == newValue ? TileChange.Type.MOVE : TileChange.Type.MERGE;
-                    changes.add(new TileChange(rowIndex, j, rowIndex, targetCol, oldValue, newValue, type));
-                }
-                targetCol++;
+        // 4. Record TileChanges based on tracking
+        for (int targetCol = 0; targetCol < SIZE; targetCol++) {
+            if (finalRow[targetCol] == 0) break;
+            
+            int oldValue = board[rowIndex][finalOriginCol[targetCol]];
+            int newValue = finalRow[targetCol];
+            int fromCol = finalOriginCol[targetCol];
+            
+            TileChange.Type type;
+            if (finalMerged[targetCol]) {
+                type = TileChange.Type.MERGE;
+            } else if (fromCol != targetCol) {
+                type = TileChange.Type.MOVE;
+            } else {
+                // No change needed
+                continue;
             }
+            
+            changes.add(new TileChange(rowIndex, fromCol, rowIndex, targetCol, oldValue, newValue, type));
         }
 
         // Update the actual board row
@@ -168,6 +210,35 @@ public class GameModel {
         int[][] c = new int[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++) System.arraycopy(b[i], 0, c[i], 0, SIZE);
         return c;
+    }
+
+    /**
+     * Untransforms coordinates from rotated space back to original space
+     */
+    private int[] untransformCoordsByRotation(int[] coords, int rotations) {
+        int row = coords[0];
+        int col = coords[1];
+        // Inverse of rotation is to rotate in the opposite direction
+        // If we rotated n times, we need to rotate (4-n) times to go back
+        int inverseRotations = (4 - rotations) % 4;
+        for (int i = 0; i < inverseRotations; i++) {
+            int newRow = col;
+            int newCol = SIZE - 1 - row;
+            row = newRow;
+            col = newCol;
+        }
+        return new int[]{row, col};
+    }
+
+    /**
+     * Untransforms coordinates from mirrored space back to original space
+     */
+    private int[] untransformCoordsByMirror(int[] coords) {
+        int row = coords[0];
+        int col = coords[1];
+        // Mirror is symmetric: applying it twice gives the original
+        col = SIZE - 1 - col;
+        return new int[]{row, col};
     }
 
     /**
