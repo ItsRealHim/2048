@@ -132,7 +132,7 @@ public class GameActivity extends AppCompatActivity {
         if (hasShownGameOver)
             return;
         // The model now tells us if a move was successful
-        boolean moved = gameModel.handleSwipe(direction);
+        boolean moved = !gameModel.handleSwipe(direction).isEmpty();
 
         if (moved) {
             // If the board changed, update the UI
