@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
+
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,7 +11,6 @@ import java.util.Random;
 public class GameModel {
 
     public static final int SIZE = 4;
-
     private final int[][] board;
     private final Random random = new Random();
     private int score;
@@ -25,32 +28,34 @@ public class GameModel {
         return score;
     }
 
+    /**
+     * Resets the game
+     */
     public void startNewGame() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        for (int i = 0; i < SIZE; i++)
+            for (int j = 0; j < SIZE; j++)
                 board[i][j] = 0;
-            }
-        }
+
         score = 0;
         addNewTile();
         addNewTile();
     }
 
     /**
-     * Adds a new tile (2 or 4) in a random empty cell.
-     * Returns a TileChange representing the new tile, or null if board full.
+     * Adds a random new tile (2 or 4) and returns a TileChange for animation
      */
     public TileChange addNewTile() {
-        List<int[]> emptyCells = new ArrayList<>();
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (board[i][j] == 0) emptyCells.add(new int[]{i, j});
-            }
-        }
-        if (emptyCells.isEmpty()) return null;
+        List<int[]> empty = new ArrayList<>();
+        for (int i = 0; i < SIZE; i++)
+            for (int j = 0; j < SIZE; j++)
+                if (board[i][j] == 0)
+                    empty.add(new int[]{i, j});
 
-        int[] cell = emptyCells.get(random.nextInt(emptyCells.size()));
-        int row = cell[0], col = cell[1];
+        if (empty.isEmpty()) return null;
+
+        int[] cell = empty.get(random.nextInt(empty.size()));
+        int row = cell[0];
+        int col = cell[1];
         int value = random.nextDouble() < 0.9 ? 2 : 4;
         board[row][col] = value;
 
@@ -58,48 +63,46 @@ public class GameModel {
     }
 
     /**
-     * Handles a swipe and returns a list of TileChanges (for animation).
+     * Handles swipe, returns list of TileChanges
      */
     public List<TileChange> handleSwipe(Direction direction) {
-        boolean needRotate = false;
-        boolean needMirror = false;
+        List<TileChange> changes = new ArrayList<>();
+        int[][] preMove = copyBoard(board);
+
+        // Transform board for LEFT logic
+        boolean mirror = false;
+        int rotations = 0;
         switch (direction) {
-            case UP: {
-                needRotate = true;
-                needMirror = true;
-            }
+            case UP:
+                rotations = 3;
+                break;
             case DOWN:
-                needRotate = true;
+                rotations = 1;
+                break;
             case RIGHT:
-                needMirror = true;
-            case LEFT: { /* nothing */ }
+                mirror = true;
+                break;
+            case LEFT:
+                break;
         }
 
-        // Apply transformations for uniform LEFT slide
-        if (needRotate) rotateClockwise();
-        if (needMirror) mirrorRows();
+        if (rotations != 0) rotateBoard(rotations);
+        if (mirror) mirrorRows();
 
-        List<TileChange> changes = new ArrayList<>();
+        // Slide & merge per row and record TileChanges
         for (int i = 0; i < SIZE; i++) {
-            changes.addAll(slideAndMergeRow(i));
+            int[] oldRow = board[i].clone();
+            List<TileChange> rowChanges = slideAndMergeRow(i, oldRow);
+            changes.addAll(rowChanges);
         }
 
         // Undo transformations
-        if (needMirror) mirrorRows();
-        if (needRotate) rotateCounterClockwise();
+        if (mirror) mirrorRows();
+        if (rotations != 0) rotateBoard((4 - rotations) % 4);
 
-        // Transform TileChange coordinates back to original orientation
-        for (TileChange change : changes) {
-            int[] from = reverseTransform(change.fromRow, change.fromCol, direction);
-            int[] to = reverseTransform(change.toRow, change.toCol, direction);
-            change.fromRow = from[0];
-            change.fromCol = from[1];
-            change.toRow = to[0];
-            change.toCol = to[1];
-        }
-
-        // Add new tile if any move occurred
-        if (!changes.isEmpty()) {
+        // Add a new tile if any move happened
+        boolean moved = !boardsEqual(preMove, board);
+        if (moved) {
             TileChange newTile = addNewTile();
             if (newTile != null) changes.add(newTile);
         }
@@ -108,112 +111,92 @@ public class GameModel {
     }
 
     /**
-     * Slide and merge a single row to the left.
-     * Returns list of TileChanges (MOVE/MERGE).
+     * Slides & merges a single row and returns TileChanges
      */
-    private List<TileChange> slideAndMergeRow(int rowIndex) {
+    private List<TileChange> slideAndMergeRow(int rowIndex, int[] originalRow) {
         List<TileChange> changes = new ArrayList<>();
-        int[] tempRow = new int[SIZE];
+        int[] temp = new int[SIZE];
         int pos = 0;
 
-        // Slide non-zero tiles
+        // 1. Slide non-zero tiles
         for (int j = 0; j < SIZE; j++) {
-            if (board[rowIndex][j] != 0) tempRow[pos++] = board[rowIndex][j];
-        }
-
-        int[] mergedRow = new int[SIZE];
-        int target = 0;
-        for (int i = 0; i < SIZE; i++) {
-            if (tempRow[i] == 0) continue;
-
-            if (target > 0 && mergedRow[target - 1] == tempRow[i]) {
-                int oldValue = mergedRow[target - 1];
-                mergedRow[target - 1] *= 2;
-                score += mergedRow[target - 1];
-
-                changes.add(new TileChange(
-                        rowIndex, i,
-                        rowIndex, target - 1,
-                        tempRow[i],
-                        mergedRow[target - 1],
-                        TileChange.Type.MERGE
-                ));
-            } else {
-                if (i != target) {
-                    changes.add(new TileChange(
-                            rowIndex, i,
-                            rowIndex, target,
-                            tempRow[i],
-                            tempRow[i],
-                            TileChange.Type.MOVE
-                    ));
-                }
-                mergedRow[target] = tempRow[i];
-                target++;
+            if (board[rowIndex][j] != 0) {
+                temp[pos++] = board[rowIndex][j];
             }
         }
 
-        // Update the board
-        System.arraycopy(mergedRow, 0, board[rowIndex], 0, SIZE);
+        // 2. Merge tiles
+        for (int j = 0; j < SIZE - 1; j++) {
+            if (temp[j] != 0 && temp[j] == temp[j + 1]) {
+                temp[j] *= 2;
+                score += temp[j];
+                temp[j + 1] = 0;
+            }
+        }
+
+        // 3. Slide again to close gaps
+        int[] finalRow = new int[SIZE];
+        pos = 0;
+        for (int j = 0; j < SIZE; j++) {
+            if (temp[j] != 0) finalRow[pos++] = temp[j];
+        }
+
+        // 4. Record TileChanges
+        int targetCol = 0;
+        for (int j = 0; j < SIZE; j++) {
+            if (originalRow[j] != 0) {
+                int oldValue = originalRow[j];
+                int newValue = finalRow[targetCol];
+                if (oldValue != newValue || j != targetCol) {
+                    TileChange.Type type = oldValue == newValue ? TileChange.Type.MOVE : TileChange.Type.MERGE;
+                    changes.add(new TileChange(rowIndex, j, rowIndex, targetCol, oldValue, newValue, type));
+                }
+                targetCol++;
+            }
+        }
+
+        // Update the actual board row
+        System.arraycopy(finalRow, 0, board[rowIndex], 0, SIZE);
+
         return changes;
     }
 
     /**
-     * Mirror the board horizontally
+     * Copies a 2D board
      */
+    private int[][] copyBoard(int[][] b) {
+        int[][] c = new int[SIZE][SIZE];
+        for (int i = 0; i < SIZE; i++) System.arraycopy(b[i], 0, c[i], 0, SIZE);
+        return c;
+    }
+
+    /**
+     * Checks if two boards are equal
+     */
+    private boolean boardsEqual(int[][] a, int[][] b) {
+        for (int i = 0; i < SIZE; i++)
+            for (int j = 0; j < SIZE; j++)
+                if (a[i][j] != b[i][j]) return false;
+        return true;
+    }
+
     private void mirrorRows() {
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE / 2; j++) {
-                int temp = board[i][j];
+                int t = board[i][j];
                 board[i][j] = board[i][SIZE - 1 - j];
-                board[i][SIZE - 1 - j] = temp;
+                board[i][SIZE - 1 - j] = t;
             }
+    }
+
+    private void rotateBoard(int times) {
+        for (int t = 0; t < times; t++) {
+            int[][] r = new int[SIZE][SIZE];
+            for (int i = 0; i < SIZE; i++)
+                for (int j = 0; j < SIZE; j++)
+                    r[j][SIZE - 1 - i] = board[i][j];
+            for (int i = 0; i < SIZE; i++) System.arraycopy(r[i], 0, board[i], 0, SIZE);
         }
-    }
-
-    /**
-     * Rotate the board 90° clockwise
-     */
-    private void rotateClockwise() {
-        int[][] rotated = new int[SIZE][SIZE];
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE; j++)
-                rotated[j][SIZE - 1 - i] = board[i][j];
-        for (int i = 0; i < SIZE; i++) System.arraycopy(rotated[i], 0, board[i], 0, SIZE);
-    }
-
-    /**
-     * Rotate the board 90° counter-clockwise
-     */
-    private void rotateCounterClockwise() {
-        int[][] rotated = new int[SIZE][SIZE];
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE; j++)
-                rotated[SIZE - 1 - j][i] = board[i][j];
-        for (int i = 0; i < SIZE; i++) System.arraycopy(rotated[i], 0, board[i], 0, SIZE);
-    }
-
-    /**
-     * Reverse transform coordinates from rotated/mirrored board to original
-     */
-    private int[] reverseTransform(int row, int col, Direction dir) {
-        int r = row, c = col;
-        switch (dir) {
-            case UP: {
-                r = col;
-                c = SIZE - 1 - row;
-                c = SIZE - 1 - c;
-            } // rotate + mirror
-            case DOWN: {
-                int tmp = r;
-                r = SIZE - 1 - c;
-                c = tmp;
-            }       // rotate back
-            case RIGHT:
-                c = SIZE - 1 - c;                                 // mirror
-            case LEFT: { /* nothing */ }
-        }
-        return new int[]{r, c};
     }
 
     public boolean isGameOver() {
@@ -235,16 +218,15 @@ public class GameModel {
     public enum Direction {UP, DOWN, LEFT, RIGHT}
 
     /**
-     * TileChange class to represent moves, merges, and new tiles
+     * Describes a tile change for UI animations
      */
     public static class TileChange {
+        public final int fromRow, fromCol;
+        public final int toRow, toCol;
         public final int oldValue, newValue;
         public final Type type;
-        public int fromRow, fromCol;
-        public int toRow, toCol;
 
-        public TileChange(int fromRow, int fromCol, int toRow, int toCol,
-                          int oldValue, int newValue, Type type) {
+        public TileChange(int fromRow, int fromCol, int toRow, int toCol, int oldValue, int newValue, Type type) {
             this.fromRow = fromRow;
             this.fromCol = fromCol;
             this.toRow = toRow;
@@ -254,10 +236,11 @@ public class GameModel {
             this.type = type;
         }
 
+        @SuppressLint("DefaultLocale")
+        @NonNull
         @Override
         public String toString() {
-            return type + ": (" + fromRow + "," + fromCol + ") -> (" +
-                    toRow + "," + toCol + "), " + oldValue + " -> " + newValue;
+            return String.format("TileChange(%s: (%d,%d) -> (%d,%d), %d -> %d)", type, fromRow, fromCol, toRow, toCol, oldValue, newValue);
         }
 
         public enum Type {MOVE, MERGE, NEW}
