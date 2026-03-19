@@ -6,10 +6,10 @@ import java.util.Random;
 
 public class GameModel {
 
-    private int[][] board;
-    private int score;
-    private final Random random = new Random();
     private static final int size = 4;
+    private final int[][] board;
+    private final Random random = new Random();
+    private int score;
 
     public GameModel() {
         board = new int[size][size];
@@ -67,7 +67,7 @@ public class GameModel {
      * @param direction The direction of the swipe ("UP", "DOWN", "LEFT", "RIGHT").
      * @return true if any tiles moved or merged, false otherwise.
      */
-    public boolean handleSwipe(String direction) {
+    public boolean handleSwipe(Direction direction) {
         boolean moved = false;
 
         // Create a copy of the board to check for changes later
@@ -76,47 +76,44 @@ public class GameModel {
             System.arraycopy(board[i], 0, preMoveBoard[i], 0, size);
         }
 
-        if ("UP".equals(direction) || "DOWN".equals(direction)) {
-            rotateBoard(1); // Rotate to handle UP/DOWN as LEFT/RIGHT
-        }
+        // Determine required transformations
+        boolean needRotate = (direction == Direction.UP || direction == Direction.DOWN);
+        boolean needReverse = (direction == Direction.RIGHT || direction == Direction.DOWN);
 
-        if ("DOWN".equals(direction)) {
+        // Apply transformations
+        if (needRotate) {
+            rotateBoard(1); // 90° clockwise
+        }
+        if (needReverse) {
             reverseRows();
         }
 
-        if ("RIGHT".equals(direction)) {
-            reverseRows();
-        }
-
-        // Main logic: slide and merge
+        // Main logic: slide and merge (assumes LEFT move)
         slideAndMerge();
 
-        // Undo the transformations
-        if ("RIGHT".equals(direction)) {
+        // Undo transformations (reverse order!)
+        if (needReverse) {
             reverseRows();
         }
-        if ("DOWN".equals(direction)) {
-            reverseRows();
-        }
-        if ("UP".equals(direction) || "DOWN".equals(direction)) {
-            rotateBoard(3); // Rotate back
+        if (needRotate) {
+            rotateBoard(3); // 270° to restore original orientation
         }
 
         // Check if the board has changed
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size && !moved; i++) {
             for (int j = 0; j < size; j++) {
                 if (board[i][j] != preMoveBoard[i][j]) {
                     moved = true;
                     break;
                 }
             }
-            if (moved) break;
         }
 
         // If a move was successful, add a new tile
         if (moved) {
             addNewTile();
         }
+
         return moved;
     }
 
@@ -193,18 +190,38 @@ public class GameModel {
     }
 
     public boolean isGameOver() {
-        int[][] originalBoard = new int[size][size];
-        System.arraycopy(board, 0, originalBoard, 0, size);
-        int originalScore = score;
-        boolean over = true;
-        if (handleSwipe("UP") ||
-                handleSwipe("DOWN") ||
-                handleSwipe("LEFT") ||
-                handleSwipe("RIGHT")) {
-            over = false;
+        // Check for empty cell (move still possible)
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (board[i][j] == 0) {
+                    return false;
+                }
+            }
         }
-        board = originalBoard;
-        score = originalScore;
-        return over;
+
+        // Check horizontal merges
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size - 1; j++) {
+                if (board[i][j] == board[i][j + 1]) {
+                    return false;
+                }
+            }
+        }
+
+        // Check vertical merges
+        for (int j = 0; j < size; j++) {
+            for (int i = 0; i < size - 1; i++) {
+                if (board[i][j] == board[i + 1][j]) {
+                    return false;
+                }
+            }
+        }
+
+        // No moves left
+        return true;
+    }
+
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT
     }
 }

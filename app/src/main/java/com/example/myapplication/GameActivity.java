@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
 
+import com.example.myapplication.GameModel.Direction;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -127,7 +128,7 @@ public class GameActivity extends AppCompatActivity {
      *
      * @param direction The direction of the swipe.
      */
-    private void handleSwipe(String direction) {
+    private void handleSwipe(Direction direction) {
         if (hasShownGameOver)
             return;
         // The model now tells us if a move was successful
@@ -191,32 +192,43 @@ public class GameActivity extends AppCompatActivity {
             private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
             @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if (e1 == null || e2 == null) return false;
+            public boolean onFling(
+                    MotionEvent e1,
+                    MotionEvent e2,
+                    float velocityX,
+                    float velocityY
+            ) {
+                try {
+                    if (e1 == null || e2 == null) return false;
 
-                float diffX = e2.getX() - e1.getX();
-                float diffY = e2.getY() - e1.getY();
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
 
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    // Horizontal swipe
-                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffX > 0) {
-                            handleSwipe("RIGHT");
-                        } else {
-                            handleSwipe("LEFT");
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+
+                        // Horizontal swipe
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                handleSwipe(Direction.RIGHT);
+                            } else {
+                                handleSwipe(Direction.LEFT);
+                            }
+                            return true;
                         }
-                        return true;
-                    }
-                } else {
-                    // Vertical swipe | in android, the Y axis is inverted
-                    if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffY > 0) {
-                            handleSwipe("UP");
-                        } else {
-                            handleSwipe("DOWN");
+                    } else {
+
+                        // Vertical swipe
+                        if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffY > 0) {
+                                handleSwipe(Direction.DOWN);
+                            } else {
+                                handleSwipe(Direction.UP);
+                            }
+                            return true;
                         }
-                        return true;
                     }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
                 return false;
             }
