@@ -6,6 +6,7 @@ import static com.example.myapplication.FBRef.refPlayer;
 import android.media.AudioAttributes;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -14,11 +15,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
+import com.example.myapplication.GameModel.TileChange;
 
 import com.example.myapplication.GameModel.Direction;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
 import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity {
@@ -132,9 +135,12 @@ public class GameActivity extends AppCompatActivity {
         if (hasShownGameOver)
             return;
         // The model now tells us if a move was successful
-        boolean moved = !gameModel.handleSwipe(direction).isEmpty();
-
-        if (moved) {
+        List<TileChange> changes = gameModel.handleSwipe(direction);
+        for(TileChange change: changes){
+            Log.d("GameActivity", "TileChange: " + change);
+        }
+        
+        if (!changes.isEmpty()) {
             // If the board changed, update the UI
             updateScore();
             tileAdapter.notifyDataSetChanged();

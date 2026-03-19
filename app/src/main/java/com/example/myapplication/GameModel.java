@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
+
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -230,6 +234,13 @@ public class GameModel {
             this.oldValue = oldValue;
             this.newValue = newValue;
             this.type = type;
+        }
+
+        @SuppressLint("DefaultLocale")
+        @NonNull
+        @Override
+        public String toString() {
+            return String.format("TileChange(%s: (%d,%d) -> (%d,%d), %d -> %d)", type, fromRow, fromCol, toRow, toCol, oldValue, newValue);
         }
 
         public enum Type {MOVE, MERGE, NEW}
