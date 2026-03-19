@@ -78,13 +78,13 @@ public class GameModel {
 
         // Determine required transformations
         boolean needRotate = (direction == Direction.UP || direction == Direction.DOWN);
-        boolean needReverse = (direction == Direction.RIGHT || direction == Direction.DOWN);
+        boolean needMirror = (direction == Direction.RIGHT || direction == Direction.DOWN);
 
         // Apply transformations
         if (needRotate) {
             rotateBoard(1); // 90° clockwise
         }
-        if (needReverse) {
+        if (needMirror) {
             mirrorRows();
         }
 
@@ -92,7 +92,7 @@ public class GameModel {
         slideAndMerge();
 
         // Undo transformations (reverse order!)
-        if (needReverse) {
+        if (needMirror) {
             mirrorRows();
         }
         if (needRotate) {
