@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
-import com.example.myapplication.GameModel.TileChange;
 
 import com.example.myapplication.GameModel.Direction;
+import com.example.myapplication.GameModel.TileChange;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -136,10 +136,10 @@ public class GameActivity extends AppCompatActivity {
             return;
         // The model now tells us if a move was successful
         List<TileChange> changes = gameModel.handleSwipe(direction);
-        for(TileChange change: changes){
+        for (TileChange change : changes) {
             Log.d("GameActivity", "TileChange: " + change);
         }
-        
+
         if (!changes.isEmpty()) {
             // If the board changed, update the UI
             updateScore();
