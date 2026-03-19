@@ -6,13 +6,13 @@ import java.util.Random;
 
 public class GameModel {
 
-    public static final int SIZE = 4;
+    private static final int size = 4;
     private final int[][] board;
     private final Random random = new Random();
     private int score;
 
     public GameModel() {
-        board = new int[SIZE][SIZE];
+        board = new int[size][size];
         score = 0;
     }
 
@@ -25,213 +25,219 @@ public class GameModel {
     }
 
     /**
-     * Resets the game
+     * Resets the game to its initial state.
+     * Clears the board, resets the score, and adds two new tiles.
      */
     public void startNewGame() {
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE; j++)
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 board[i][j] = 0;
-
+            }
+        }
         score = 0;
         addNewTile();
         addNewTile();
     }
 
     /**
-     * Adds a random new tile (2 or 4) and returns a TileChange for animation
+     * Adds a new tile (either a 2 or a size) to a random empty cell on the board.
      */
-    public TileChange addNewTile() {
-        List<int[]> empty = new ArrayList<>();
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE; j++)
-                if (board[i][j] == 0)
-                    empty.add(new int[]{i, j});
+    public void addNewTile() {
+        List<int[]> emptyCells = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (board[i][j] == 0) {
+                    emptyCells.add(new int[]{i, j});
+                }
+            }
+        }
 
-        if (empty.isEmpty()) return null;
-
-        int[] cell = empty.get(random.nextInt(empty.size()));
-        int row = cell[0];
-        int col = cell[1];
-        int value = random.nextDouble() < 0.9 ? 2 : 4;
-        board[row][col] = value;
-
-        return new TileChange(-1, -1, row, col, 0, value, TileChange.Type.NEW);
+        if (!emptyCells.isEmpty()) {
+            int[] cell = emptyCells.get(random.nextInt(emptyCells.size()));
+            int row = cell[0];
+            int col = cell[1];
+            // 90% chance for a '2', 10% chance for a 'size'
+            board[row][col] = random.nextDouble() < 0.9 ? 2 : 4;
+        }
     }
 
     /**
-     * Handles swipe, returns list of TileChanges
+     * Handles the entire swipe process: slide, merge, and slide again.
+     *
+     * @param direction The direction of the swipe ("UP", "DOWN", "LEFT", "RIGHT").
+     * @return true if any tiles moved or merged, false otherwise.
      */
-    public List<TileChange> handleSwipe(Direction direction) {
-        List<TileChange> changes = new ArrayList<>();
-        int[][] preMove = copyBoard(board);
+    public boolean handleSwipe(Direction direction) {
+        boolean moved = false;
 
-        // Transform board for LEFT logic
-        boolean mirror = false;
-        int rotations = 0;
+        // Create a copy of the board to check for changes later
+        int[][] preMoveBoard = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            System.arraycopy(board[i], 0, preMoveBoard[i], 0, size);
+        }
+
+        // Determine required transformations
+        boolean needRotate = false;
+        boolean needMirror = false;
         switch (direction) {
             case UP:
-                rotations = 3;
+                needRotate = true;
+                needMirror = true;
                 break;
             case DOWN:
-                rotations = 1;
+                needRotate = true;
                 break;
             case RIGHT:
-                mirror = true;
+                needMirror = true;
                 break;
             case LEFT:
+                // nothing to do
                 break;
         }
 
-        if (rotations != 0) rotateBoard(rotations);
-        if (mirror) mirrorRows();
-
-        // Slide & merge per row and record TileChanges
-        for (int i = 0; i < SIZE; i++) {
-            int[] oldRow = board[i].clone();
-            List<TileChange> rowChanges = slideAndMergeRow(i, oldRow);
-            changes.addAll(rowChanges);
+        // Apply transformations
+        if (needRotate) {
+            rotateBoard(1); // 90° clockwise
+        }
+        if (needMirror) {
+            mirrorRows();
         }
 
-        // Undo transformations
-        if (mirror) mirrorRows();
-        if (rotations != 0) rotateBoard((4 - rotations) % 4);
+        // Main logic: slide and merge (assumes LEFT move)
+        slideAndMerge();
 
-        // Add a new tile if any move happened
-        boolean moved = !boardsEqual(preMove, board);
-        if (moved) {
-            TileChange newTile = addNewTile();
-            if (newTile != null) changes.add(newTile);
+        // Undo transformations (reverse order!)
+        if (needMirror) {
+            mirrorRows();
+        }
+        if (needRotate) {
+            rotateBoard(3); // 270° to restore original orientation
         }
 
-        return changes;
-    }
-
-    /**
-     * Slides & merges a single row and returns TileChanges
-     */
-    private List<TileChange> slideAndMergeRow(int rowIndex, int[] originalRow) {
-        List<TileChange> changes = new ArrayList<>();
-        int[] temp = new int[SIZE];
-        int pos = 0;
-
-        // 1. Slide non-zero tiles
-        for (int j = 0; j < SIZE; j++) {
-            if (board[rowIndex][j] != 0) {
-                temp[pos++] = board[rowIndex][j];
-            }
-        }
-
-        // 2. Merge tiles
-        for (int j = 0; j < SIZE - 1; j++) {
-            if (temp[j] != 0 && temp[j] == temp[j + 1]) {
-                temp[j] *= 2;
-                score += temp[j];
-                temp[j + 1] = 0;
-            }
-        }
-
-        // 3. Slide again to close gaps
-        int[] finalRow = new int[SIZE];
-        pos = 0;
-        for (int j = 0; j < SIZE; j++) {
-            if (temp[j] != 0) finalRow[pos++] = temp[j];
-        }
-
-        // 4. Record TileChanges
-        int targetCol = 0;
-        for (int j = 0; j < SIZE; j++) {
-            if (originalRow[j] != 0) {
-                int oldValue = originalRow[j];
-                int newValue = finalRow[targetCol];
-                if (oldValue != newValue || j != targetCol) {
-                    TileChange.Type type = oldValue == newValue ? TileChange.Type.MOVE : TileChange.Type.MERGE;
-                    changes.add(new TileChange(rowIndex, j, rowIndex, targetCol, oldValue, newValue, type));
+        // Check if the board has changed
+        for (int i = 0; i < size && !moved; i++) {
+            for (int j = 0; j < size; j++) {
+                if (board[i][j] != preMoveBoard[i][j]) {
+                    moved = true;
+                    break;
                 }
-                targetCol++;
             }
         }
 
-        // Update the actual board row
-        System.arraycopy(finalRow, 0, board[rowIndex], 0, SIZE);
+        // If a move was successful, add a new tile
+        if (moved) {
+            addNewTile();
+        }
 
-        return changes;
+        return moved;
     }
 
     /**
-     * Copies a 2D board
+     * Slides all tiles to the left and merges adjacent identical tiles.
      */
-    private int[][] copyBoard(int[][] b) {
-        int[][] c = new int[SIZE][SIZE];
-        for (int i = 0; i < SIZE; i++) System.arraycopy(b[i], 0, c[i], 0, SIZE);
-        return c;
-    }
-
-    /**
-     * Checks if two boards are equal
-     */
-    private boolean boardsEqual(int[][] a, int[][] b) {
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE; j++)
-                if (a[i][j] != b[i][j]) return false;
-        return true;
-    }
-
-    private void mirrorRows() {
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE / 2; j++) {
-                int t = board[i][j];
-                board[i][j] = board[i][SIZE - 1 - j];
-                board[i][SIZE - 1 - j] = t;
+    private void slideAndMerge() {
+        for (int i = 0; i < size; i++) {
+            // 1. Slide all non-zero tiles to the left
+            int[] tempRow = new int[size];
+            int current = 0;
+            for (int j = 0; j < size; j++) {
+                if (board[i][j] != 0) {
+                    tempRow[current++] = board[i][j];
+                }
             }
+
+            // 2. Merge adjacent tiles
+            for (int j = 0; j < size - 1; j++) {
+                if (tempRow[j] != 0 && tempRow[j] == tempRow[j + 1]) {
+                    tempRow[j] *= 2;
+                    score += tempRow[j]; // Update score
+                    tempRow[j + 1] = 0; // The second tile is consumed
+                }
+            }
+
+            // 3. Slide again to close gaps created by merging
+            int[] finalRow = new int[size];
+            current = 0;
+            for (int j = 0; j < size; j++) {
+                if (tempRow[j] != 0) {
+                    finalRow[current++] = tempRow[j];
+                }
+            }
+
+            // size. Update the original board row
+            System.arraycopy(finalRow, 0, board[i], 0, size);
+        }
     }
 
+    /**
+     * mirrors the elements in each row of the board.
+     * with the middle being the axis of symmetry.
+     * For example, in a 4x4 board, the first and fourth elements of each row are swapped, as are the second and third elements.
+     */
+    private void mirrorRows() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size / 2; j++) {
+                int temp = board[i][j];
+                board[i][j] = board[i][size - 1 - j];
+                board[i][size - 1 - j] = temp;
+            }
+        }
+    }
+
+    /**
+     * Rotates the board 90 degrees clockwise a specified number of times.
+     * Used to handle UP and DOWN swipes.
+     *
+     * @param times Number of 90-degree rotations.
+     */
     private void rotateBoard(int times) {
         for (int t = 0; t < times; t++) {
-            int[][] r = new int[SIZE][SIZE];
-            for (int i = 0; i < SIZE; i++)
-                for (int j = 0; j < SIZE; j++)
-                    r[j][SIZE - 1 - i] = board[i][j];
-            for (int i = 0; i < SIZE; i++) System.arraycopy(r[i], 0, board[i], 0, SIZE);
+            int[][] rotatedBoard = new int[size][size];
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    rotatedBoard[j][size - 1 - i] = board[i][j];
+                }
+            }
+            // Copy rotated board back to original
+            for (int i = 0; i < size; i++) {
+                System.arraycopy(rotatedBoard[i], 0, board[i], 0, size);
+            }
         }
     }
 
     public boolean isGameOver() {
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE; j++)
-                if (board[i][j] == 0) return false;
+        // Check for empty cell (move still possible)
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (board[i][j] == 0) {
+                    return false;
+                }
+            }
+        }
 
-        for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE - 1; j++)
-                if (board[i][j] == board[i][j + 1]) return false;
+        // Check horizontal merges
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size - 1; j++) {
+                if (board[i][j] == board[i][j + 1]) {
+                    return false;
+                }
+            }
+        }
 
-        for (int j = 0; j < SIZE; j++)
-            for (int i = 0; i < SIZE - 1; i++)
-                if (board[i][j] == board[i + 1][j]) return false;
+        // Check vertical merges
+        for (int j = 0; j < size; j++) {
+            for (int i = 0; i < size - 1; i++) {
+                if (board[i][j] == board[i + 1][j]) {
+                    return false;
+                }
+            }
+        }
 
+        // No moves left
         return true;
     }
 
-    public enum Direction {UP, DOWN, LEFT, RIGHT}
-
-    /**
-     * Describes a tile change for UI animations
-     */
-    public static class TileChange {
-        public final int fromRow, fromCol;
-        public final int toRow, toCol;
-        public final int oldValue, newValue;
-        public final Type type;
-
-        public TileChange(int fromRow, int fromCol, int toRow, int toCol, int oldValue, int newValue, Type type) {
-            this.fromRow = fromRow;
-            this.fromCol = fromCol;
-            this.toRow = toRow;
-            this.toCol = toCol;
-            this.oldValue = oldValue;
-            this.newValue = newValue;
-            this.type = type;
-        }
-
-        public enum Type {MOVE, MERGE, NEW}
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT
     }
 }
