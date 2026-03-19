@@ -77,17 +77,22 @@ public class GameModel {
         }
 
         // Determine required transformations
-        boolean needRotate=false;
-        boolean needMirror=false;
-        if(direction == Direction.UP){
-            needRotate = true;
-            needMirror = true;
-        }
-        if(direction == Direction.DOWN){
-            needRotate = true;
-        }
-        if(direction == Direction.RIGHT){
-            needMirror = true;
+        boolean needRotate = false;
+        boolean needMirror = false;
+        switch (direction) {
+            case UP:
+                needRotate = true;
+                needMirror = true;
+                break;
+            case DOWN:
+                needRotate = true;
+                break;
+            case RIGHT:
+                needMirror = true;
+                break;
+            case LEFT:
+                // nothing to do
+                break;
         }
 
         // Apply transformations
