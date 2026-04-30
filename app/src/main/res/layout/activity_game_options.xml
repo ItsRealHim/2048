@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="24dp"
     android:gravity="center"
     tools:context=".GameOptionsActivity">
 
@@ -13,13 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Music Volume"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginBottom="12dp" />
 
     <SeekBar
         android:id="@+id/seekBarVolume"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:max="100"
         android:progress="100" />
 
