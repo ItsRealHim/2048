@@ -18,8 +18,8 @@ public class GameOptionsActivity extends AppCompatActivity implements View.OnCli
 
     private MusicService musicService;
     private boolean isBound = false;
-    private TextView tvVolumePercentage;
-    private SeekBar seekBarVolume;
+    private TextView tvVolumePercentage = null;
+    private SeekBar seekBarVolume = null;
     private TextView btnBackToMenu;
 
     private final ServiceConnection serviceConnection = new ServiceConnection() {
@@ -43,8 +43,12 @@ public class GameOptionsActivity extends AppCompatActivity implements View.OnCli
 
     private void setVisualVolume(float volume) {
         int percentage = (int) (volume * 100);
-        seekBarVolume.setProgress(percentage);
-        tvVolumePercentage.setText(String.format("%d%%", percentage));
+        if (seekBarVolume != null) {
+            seekBarVolume.setProgress(percentage);
+        }
+        if (tvVolumePercentage != null) {
+            tvVolumePercentage.setText(String.format("%d%%", percentage));
+        }
     }
 
     @Override
@@ -62,6 +66,7 @@ public class GameOptionsActivity extends AppCompatActivity implements View.OnCli
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser && isBound && musicService != null) {
                     float volume = progress / 100f;
+                    musicService.setVolume(volume);
                     setVisualVolume(volume);
                 }
             }
