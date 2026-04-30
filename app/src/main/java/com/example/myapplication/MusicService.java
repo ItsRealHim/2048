@@ -18,7 +18,7 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     private MediaPlayer mediaPlayer;
     private AudioManager audioManager;
     private AudioFocusRequest audioFocusRequest;
-    private boolean playbackDelayed = false;
+    private float currentVolume = 1.0f;
     private final IBinder binder = new MusicBinder(); // Create a binder instance
 
     // Inner class that clients can use to interact with the service
@@ -73,8 +73,13 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     // --- Public method for clients to call ---
     public void setVolume(float volume) {
         if (mediaPlayer != null) {
+            currentVolume = volume;
             mediaPlayer.setVolume(volume, volume);
         }
+    }
+
+    public float getVolume() {
+        return currentVolume;
     }
 
     @Override
@@ -98,7 +103,6 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
                     mediaPlayer.start();
                 }
                 mediaPlayer.setVolume(1.0f, 1.0f);
-                playbackDelayed = false;
                 break;
             case AudioManager.AUDIOFOCUS_LOSS:
                 if (mediaPlayer.isPlaying()) {
@@ -111,7 +115,6 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
-                    playbackDelayed = true;
                 }
                 break;
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
