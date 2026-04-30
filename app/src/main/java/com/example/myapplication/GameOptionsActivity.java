@@ -1,21 +1,26 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.FBRef.refAuth;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.View;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GameOptionsActivity extends AppCompatActivity {
+public class GameOptionsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private MusicService musicService;
     private boolean isBound = false;
-
+    private TextView tvVolumePercentage;
     private SeekBar seekBarVolume;
+    private TextView btnBackToMenu;
 
     private final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -41,7 +46,10 @@ public class GameOptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_options);
 
-        seekBarVolume = findViewById(R.id.seekBarVolume);
+        seekBarVolume = findViewById(R.id.sbVolume);
+        tvVolumePercentage = findViewById(R.id.tvVolumePercentage);
+        btnBackToMenu = findViewById(R.id.btnBackToMenu);
+        btnBackToMenu.setOnClickListener(this);
 
         seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -49,6 +57,7 @@ public class GameOptionsActivity extends AppCompatActivity {
                 if (fromUser && isBound && musicService != null) {
                     float volume = progress / 100f;
                     musicService.setVolume(volume);
+                    tvVolumePercentage.setText(String.format("%d%%", progress));
                 }
             }
 
@@ -70,6 +79,15 @@ public class GameOptionsActivity extends AppCompatActivity {
         if (isBound) {
             unbindService(serviceConnection);
             isBound = false;
+        }
+    }
+    public void onClick(View view) {
+        int viewId = view.getId();
+        if (viewId == R.id.btnBackToMenu) {
+            refAuth.signOut();
+            Intent intent = new Intent(this, GameMenuActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }
