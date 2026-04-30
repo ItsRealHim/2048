@@ -31,7 +31,7 @@ public class GameOptionsActivity extends AppCompatActivity implements View.OnCli
 
             // sync slider with current volume
             float currentVolume = musicService.getVolume();
-            seekBarVolume.setProgress((int) (currentVolume * 100));
+            setVisualVolume(currentVolume);
         }
 
         @Override
@@ -40,6 +40,12 @@ public class GameOptionsActivity extends AppCompatActivity implements View.OnCli
             musicService = null;
         }
     };
+
+    private void setVisualVolume(float volume) {
+        int percentage = (int) (volume * 100);
+        seekBarVolume.setProgress(percentage);
+        tvVolumePercentage.setText(String.format("%d%%", percentage));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +62,7 @@ public class GameOptionsActivity extends AppCompatActivity implements View.OnCli
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser && isBound && musicService != null) {
                     float volume = progress / 100f;
-                    musicService.setVolume(volume);
-                    tvVolumePercentage.setText(String.format("%d%%", progress));
+                    setVisualVolume(volume);
                 }
             }
 

@@ -18,9 +18,7 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     private MediaPlayer mediaPlayer;
     private AudioManager audioManager;
     private AudioFocusRequest audioFocusRequest;
-
     private float currentVolume = 1.0f;
-
     private final IBinder binder = new MusicBinder();
 
     public class MusicBinder extends Binder {
@@ -91,6 +89,7 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     // ----------------------
 
     public void setVolume(float volume) {
+        volume = (float) Math.sqrt(volume);
         currentVolume = volume;
         if (mediaPlayer != null) {
             mediaPlayer.setVolume(volume, volume);
@@ -98,7 +97,7 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     }
 
     public float getVolume() {
-        return currentVolume;
+        return currentVolume * currentVolume;
     }
 
     // ----------------------
