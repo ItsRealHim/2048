@@ -35,6 +35,7 @@ android {
 dependencies {
     implementation(libs.exoplayer)
     implementation(libs.appcompat)
+    implementation(libs.constraintlayout)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.firebase.auth)

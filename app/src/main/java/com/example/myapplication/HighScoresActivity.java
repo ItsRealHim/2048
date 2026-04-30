@@ -74,10 +74,10 @@ public class HighScoresActivity extends AppCompatActivity {
         // Sorts the list based on the current toggle state
         if (isSortByHighScore) {
             // Sort by highScore in descending order
-            Collections.sort(highScoresList, (p1, p2) -> Integer.compare(p2.getHighScore(), p1.getHighScore()));
+            highScoresList.sort((p1, p2) -> Integer.compare(p2.getHighScore(), p1.getHighScore()));
         } else {
             // Sort by gamesPlayed in descending order
-            Collections.sort(highScoresList, (p1, p2) -> Integer.compare(p2.getGamesPlayed(), p1.getGamesPlayed()));
+            highScoresList.sort((p1, p2) -> Integer.compare(p2.getGamesPlayed(), p1.getGamesPlayed()));
         }
 
         // Notify the adapter that the data has changed

@@ -11,7 +11,7 @@ public class Player {
     private String PlayerID;
 
     public Player() {
-        // Essential for Firebase to map data to this class
+        this("");
     }
 
     public Player(String username) {
