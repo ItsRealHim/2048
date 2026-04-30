@@ -20,8 +20,6 @@
         android:id="@+id/seekBarVolume"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:progressDrawable="@drawable/seek_bar"
-        android:thumb="@drawable/seek_thumb"
         android:max="100"
         android:progress="100" />
 
