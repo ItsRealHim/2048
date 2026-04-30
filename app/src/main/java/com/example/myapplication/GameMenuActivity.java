@@ -19,7 +19,6 @@ public class GameMenuActivity extends AppCompatActivity implements View.OnClickL
 
     private CardView playGame, cvHighScores;
     private CardView cvGameOptions; // 1. Declare the CardView with the correct ID name
-    private Button btnProfileDetails;
     private TextView signOut;
 
     @Override
@@ -37,14 +36,12 @@ public class GameMenuActivity extends AppCompatActivity implements View.OnClickL
         signOut = findViewById(R.id.signOut);
         playGame = findViewById(R.id.playgame);
         cvHighScores = findViewById(R.id.cvHighScores);
-        btnProfileDetails = findViewById(R.id.btnProfileDetails);
         cvGameOptions = findViewById(R.id.cvGameOptions); // Find the game options CardView
 
         // 3. Set the click listener for all interactive views
         signOut.setOnClickListener(this);
         playGame.setOnClickListener(this);
         cvHighScores.setOnClickListener(this);
-        btnProfileDetails.setOnClickListener(this);
         cvGameOptions.setOnClickListener(this); // Set the listener for the options CardView
     }
 
