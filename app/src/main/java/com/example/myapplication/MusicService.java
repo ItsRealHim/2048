@@ -18,7 +18,11 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     private MediaPlayer mediaPlayer;
     private AudioManager audioManager;
     private AudioFocusRequest audioFocusRequest;
+
     private float currentVolume = 1.0f;
+    private boolean wasPlayingBeforeLoss = false;
+    private boolean isPrepared = false;
+
     private final IBinder binder = new MusicBinder();
 
     public class MusicBinder extends Binder {
@@ -42,11 +46,13 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         if (requestAudioFocus()) {
-            if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+            if (mediaPlayer != null && isPrepared && !mediaPlayer.isPlaying()) {
                 mediaPlayer.start();
             }
         }
+
         return START_STICKY;
     }
 
@@ -58,27 +64,33 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     }
 
     // ----------------------
-    // MediaPlayer helpers
+    // MediaPlayer
     // ----------------------
 
     private void initMediaPlayer() {
-        releaseMediaPlayer(); // safety
+        releaseMediaPlayer();
 
         mediaPlayer = MediaPlayer.create(this, R.raw.background_music);
+
         if (mediaPlayer != null) {
             mediaPlayer.setLooping(true);
             mediaPlayer.setVolume(currentVolume, currentVolume);
+            isPrepared = true;
+        } else {
+            isPrepared = false;
         }
     }
 
     private void releaseMediaPlayer() {
+        isPrepared = false;
+
         if (mediaPlayer != null) {
             try {
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
                 }
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
+
             mediaPlayer.release();
             mediaPlayer = null;
         }
@@ -89,8 +101,9 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     // ----------------------
 
     public void setVolume(float volume) {
-        volume = volume * volume;
+        volume = volume * volume; // perceived curve
         currentVolume = volume;
+
         if (mediaPlayer != null) {
             mediaPlayer.setVolume(volume, volume);
         }
@@ -101,65 +114,60 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     }
 
     // ----------------------
-    // Audio Focus Handling
+    // Audio Focus
     // ----------------------
 
     @Override
     public void onAudioFocusChange(int focusChange) {
 
+        if (mediaPlayer == null) return;
+
         switch (focusChange) {
 
             case AudioManager.AUDIOFOCUS_GAIN:
-                if (mediaPlayer == null) {
-                    initMediaPlayer();
-                }
+                mediaPlayer.setVolume(currentVolume, currentVolume);
 
-                if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+                if (wasPlayingBeforeLoss && !mediaPlayer.isPlaying()) {
                     mediaPlayer.start();
                 }
 
-                if (mediaPlayer != null) {
-                    mediaPlayer.setVolume(currentVolume, currentVolume);
-                }
+                wasPlayingBeforeLoss = false;
                 break;
 
             case AudioManager.AUDIOFOCUS_LOSS:
-                // permanent loss → pause (not stop/release)
-                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                    mediaPlayer.pause();
-                }
-                break;
-
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                wasPlayingBeforeLoss = mediaPlayer.isPlaying();
+
+                if (mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                 }
                 break;
 
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                    float duckVolume = currentVolume * 0.2f;
-                    mediaPlayer.setVolume(duckVolume, duckVolume);
-                }
+                mediaPlayer.setVolume(
+                        currentVolume * 0.2f,
+                        currentVolume * 0.2f
+                );
                 break;
         }
     }
 
     // ----------------------
-    // Audio Focus Requests
+    // Audio Focus Request
     // ----------------------
 
     private boolean requestAudioFocus() {
         if (audioManager == null) return false;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            AudioAttributes playbackAttributes = new AudioAttributes.Builder()
+
+            AudioAttributes attrs = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_GAME)
                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                     .build();
 
             audioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
-                    .setAudioAttributes(playbackAttributes)
+                    .setAudioAttributes(attrs)
                     .setAcceptsDelayedFocusGain(true)
                     .setOnAudioFocusChangeListener(this)
                     .build();
