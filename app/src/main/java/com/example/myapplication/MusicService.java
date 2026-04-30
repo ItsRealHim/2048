@@ -89,7 +89,7 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     // ----------------------
 
     public void setVolume(float volume) {
-        volume = (float) Math.sqrt(volume);
+        volume = volume * volume;
         currentVolume = volume;
         if (mediaPlayer != null) {
             mediaPlayer.setVolume(volume, volume);
@@ -97,7 +97,7 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     }
 
     public float getVolume() {
-        return currentVolume * currentVolume;
+        return (float) Math.sqrt(currentVolume);
     }
 
     // ----------------------
