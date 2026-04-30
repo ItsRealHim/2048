@@ -6,22 +6,21 @@ import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
+import androidx.media3.common.MediaItem;
+import androidx.media3.exoplayer.ExoPlayer;
 
 public class MusicService extends Service implements AudioManager.OnAudioFocusChangeListener {
-
-    private MediaPlayer mediaPlayer;
+    private ExoPlayer player;
     private AudioManager audioManager;
     private AudioFocusRequest audioFocusRequest;
 
     private float currentVolume = 1.0f;
     private boolean wasPlayingBeforeLoss = false;
-    private boolean isPrepared = false;
 
     private final IBinder binder = new MusicBinder();
 
@@ -40,16 +39,17 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     @Override
     public void onCreate() {
         super.onCreate();
+
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        initMediaPlayer();
+        initPlayer();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         if (requestAudioFocus()) {
-            if (mediaPlayer != null && isPrepared && !mediaPlayer.isPlaying()) {
-                mediaPlayer.start();
+            if (player != null) {
+                player.setPlayWhenReady(true);
             }
         }
 
@@ -59,40 +59,34 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     @Override
     public void onDestroy() {
         super.onDestroy();
-        releaseMediaPlayer();
+        releasePlayer();
         abandonAudioFocus();
     }
 
     // ----------------------
-    // MediaPlayer
+    // ExoPlayer setup
     // ----------------------
 
-    private void initMediaPlayer() {
-        releaseMediaPlayer();
+    private void initPlayer() {
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.background_music);
+        releasePlayer();
 
-        if (mediaPlayer != null) {
-            mediaPlayer.setLooping(true);
-            mediaPlayer.setVolume(currentVolume, currentVolume);
-            isPrepared = true;
-        } else {
-            isPrepared = false;
-        }
+        player = new ExoPlayer.Builder(this).build();
+
+        MediaItem item = MediaItem.fromUri("android.resource://" + getPackageName() + "/" + R.raw.background_music);
+        player.setMediaItem(item);
+
+        player.setRepeatMode(ExoPlayer.REPEAT_MODE_ONE);
+
+        player.prepare();
+        player.setVolume(currentVolume);
     }
 
-    private void releaseMediaPlayer() {
-        isPrepared = false;
+    private void releasePlayer() {
 
-        if (mediaPlayer != null) {
-            try {
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                }
-            } catch (Exception ignored) {}
-
-            mediaPlayer.release();
-            mediaPlayer = null;
+        if (player != null) {
+            player.release();
+            player = null;
         }
     }
 
@@ -101,16 +95,32 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     // ----------------------
 
     public void setVolume(float volume) {
-        volume = volume * volume; // perceived curve
+        volume = Math.max(0f, Math.min(volume, 1f));
         currentVolume = volume;
 
-        if (mediaPlayer != null) {
-            mediaPlayer.setVolume(volume, volume);
+        if (player != null) {
+            player.setVolume(volume);
         }
     }
 
     public float getVolume() {
-        return (float) Math.sqrt(currentVolume);
+        return currentVolume;
+    }
+
+    public boolean isPlaying() {
+        return player != null && player.isPlaying();
+    }
+
+    public void play() {
+        if (player != null) {
+            player.setPlayWhenReady(true);
+        }
+    }
+
+    public void pause() {
+        if (player != null) {
+            player.setPlayWhenReady(false);
+        }
     }
 
     // ----------------------
@@ -120,15 +130,15 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     @Override
     public void onAudioFocusChange(int focusChange) {
 
-        if (mediaPlayer == null) return;
+        if (player == null) return;
 
         switch (focusChange) {
 
             case AudioManager.AUDIOFOCUS_GAIN:
-                mediaPlayer.setVolume(currentVolume, currentVolume);
+                player.setVolume(currentVolume);
 
-                if (wasPlayingBeforeLoss && !mediaPlayer.isPlaying()) {
-                    mediaPlayer.start();
+                if (wasPlayingBeforeLoss) {
+                    player.setPlayWhenReady(true);
                 }
 
                 wasPlayingBeforeLoss = false;
@@ -136,27 +146,22 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
 
             case AudioManager.AUDIOFOCUS_LOSS:
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-                wasPlayingBeforeLoss = mediaPlayer.isPlaying();
-
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.pause();
-                }
+                wasPlayingBeforeLoss = player.isPlaying();
+                player.setPlayWhenReady(false);
                 break;
 
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                mediaPlayer.setVolume(
-                        currentVolume * 0.2f,
-                        currentVolume * 0.2f
-                );
+                player.setVolume(currentVolume * 0.2f);
                 break;
         }
     }
 
     // ----------------------
-    // Audio Focus Request
+    // Audio Focus request
     // ----------------------
 
     private boolean requestAudioFocus() {
+
         if (audioManager == null) return false;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -168,8 +173,8 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
 
             audioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
                     .setAudioAttributes(attrs)
-                    .setAcceptsDelayedFocusGain(true)
                     .setOnAudioFocusChangeListener(this)
+                    .setAcceptsDelayedFocusGain(true)
                     .build();
 
             return audioManager.requestAudioFocus(audioFocusRequest)
@@ -185,12 +190,15 @@ public class MusicService extends Service implements AudioManager.OnAudioFocusCh
     }
 
     private void abandonAudioFocus() {
+
         if (audioManager == null) return;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
             if (audioFocusRequest != null) {
                 audioManager.abandonAudioFocusRequest(audioFocusRequest);
             }
+
         } else {
             audioManager.abandonAudioFocus(this);
         }
