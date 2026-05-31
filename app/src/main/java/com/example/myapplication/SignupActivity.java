@@ -34,7 +34,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     private EditText eTEmail;
     private EditText eTPass;
-    private EditText username;
+    private EditText eTName;
     private Button signUp;
     private TextView gotoSignin;
 
@@ -51,7 +51,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         });
         eTEmail = findViewById(R.id.email);
         eTPass = findViewById(R.id.password);
-        username = findViewById(R.id.username);
+        eTName = findViewById(R.id.username);
         signUp = findViewById(R.id.signup_button);
         gotoSignin = findViewById(R.id.goto_signin);
         signUp.setOnClickListener(this);
@@ -63,7 +63,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == signUp.getId()) {
             String email = eTEmail.getText().toString();
             String pass = eTPass.getText().toString();
-            if (email.isEmpty() || pass.isEmpty()) {
+            String name = eTName.getText().toString();
+            if (email.isEmpty() || pass.isEmpty()|| name.isEmpty()) {
                 Toast.makeText(SignupActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             } else {
                 ProgressDialog pd = new ProgressDialog(this);
@@ -79,12 +80,12 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                     Log.i("MainActivity", "createUserWithEmailAndPassword:success");
                                     FirebaseUser user = refAuth.getCurrentUser();
 
-                                    String displayName = username.getText().toString();
+                                    String displayName = eTName.getText().toString();
                                     Player new_player = new Player(displayName);
 
                                     String UserID = user.getUid();
                                     new_player.setPlayerID(UserID);
-                                    refPlayer.child(UserID).setValue(new_player.getMap());
+                                    refPlayer.child(UserID).setValue(new_player);
 
                                     Intent intent = new Intent(SignupActivity.this, GameMenuActivity.class);
                                     startActivity(intent);

@@ -1,0 +1,1187 @@
+<html><body> 
+<h2></h2> 
+<h2>dark_edit_text_background.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<shape xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:shape="rectangle"^> 
+    ^<-- Background color of the EditText --^> 
+    ^<solid android:color="#2C2C2E" /^> 
+    ^<-- Border for the EditText --^> 
+    ^<stroke 
+        android:width="1dp" 
+        android:color="#48484A" /^> 
+    ^<-- Rounded corners --^> 
+    ^<corners android:radius="12dp" /^> 
+^</shape^> 
+</pre> 
+<h2></h2> 
+<h2>ic_launcher_background.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<vector xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:width="108dp" 
+    android:height="108dp" 
+    android:viewportWidth="108" 
+    android:viewportHeight="108"^> 
+    ^<path 
+        android:fillColor="#3DDC84" 
+        android:pathData="M0,0h108v108h-108z" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M9,0L9,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M19,0L19,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M29,0L29,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M39,0L39,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M49,0L49,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M59,0L59,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M69,0L69,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M79,0L79,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M89,0L89,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M99,0L99,108" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,9L108,9" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,19L108,19" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,29L108,29" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,39L108,39" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,49L108,49" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,59L108,59" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,69L108,69" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,79L108,79" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,89L108,89" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M0,99L108,99" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M19,29L89,29" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M19,39L89,39" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M19,49L89,49" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M19,59L89,59" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M19,69L89,69" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M19,79L89,79" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M29,19L29,89" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M39,19L39,89" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M49,19L49,89" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M59,19L59,89" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M69,19L69,89" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+    ^<path 
+        android:fillColor="#00000000" 
+        android:pathData="M79,19L79,89" 
+        android:strokeWidth="0.8" 
+        android:strokeColor="#33FFFFFF" /^> 
+^</vector^> 
+</pre> 
+<h2></h2> 
+<h2>ic_launcher_foreground.xml</h2> 
+<pre> 
+^<vector xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:aapt="http://schemas.android.com/aapt" 
+    android:width="108dp" 
+    android:height="108dp" 
+    android:viewportWidth="108" 
+    android:viewportHeight="108"^> 
+    ^<path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z"^> 
+        ^<aapt:attr name="android:fillColor"^> 
+            ^<gradient 
+                android:endX="85.84757" 
+                android:endY="92.4963" 
+                android:startX="42.9492" 
+                android:startY="49.59793" 
+                android:type="linear"^> 
+                ^<item 
+                    android:color="#44000000" 
+                    android:offset="0.0" /^> 
+                ^<item 
+                    android:color="#00000000" 
+                    android:offset="1.0" /^> 
+            ^</gradient^> 
+        ^</aapt:attr^> 
+    ^</path^> 
+    ^<path 
+        android:fillColor="#FFFFFF" 
+        android:fillType="nonZero" 
+        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z" 
+        android:strokeWidth="1" 
+        android:strokeColor="#00000000" /^> 
+^</vector^> 
+</pre> 
+<h2></h2> 
+<h2>rounded_corner_view.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<shape xmlns:android="http://schemas.android.com/apk/res/android"^> 
+    ^<corners android:radius="12dp" /^> 
+^</shape^> 
+</pre> 
+<h2></h2> 
+<h2>activity_game.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:background="#1C1C1E" 
+    tools:context=".GameActivity"^> 
+    ^<-- Score Display --^> 
+    ^<LinearLayout 
+        android:id="@+id/scoreContainer" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="32dp" 
+        android:background="@drawable/rounded_corner_view" 
+        android:backgroundTint="#2C2C2E" 
+        android:orientation="vertical" 
+        android:padding="16dp" 
+        app:layout_constraintEnd_toStartOf="@+id/highScoreContainer" 
+        app:layout_constraintHorizontal_chainStyle="spread" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toTopOf="parent"^> 
+        ^<TextView 
+            android:layout_width="match_parent" 
+            android:layout_height="wrap_content" 
+            android:fontFamily="sans-serif-medium" 
+            android:gravity="center" 
+            android:text="SCORE" 
+            android:textColor="#8A8A8E" 
+            android:textSize="16sp" /^> 
+        ^<TextView 
+            android:id="@+id/tvScore" 
+            android:layout_width="match_parent" 
+            android:layout_height="wrap_content" 
+            android:fontFamily="sans-serif-black" 
+            android:gravity="center" 
+            android:text="0" 
+            android:textColor="#E5E5E7" 
+            android:textSize="24sp" /^> 
+    ^</LinearLayout^> 
+    ^<-- High Score Display --^> 
+    ^<LinearLayout 
+        android:id="@+id/highScoreContainer" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="32dp" 
+        android:background="@drawable/rounded_corner_view" 
+        android:backgroundTint="#2C2C2E" 
+        android:orientation="vertical" 
+        android:padding="16dp" 
+        app:layout_constraintEnd_toStartOf="@+id/btnNewGame" 
+        app:layout_constraintStart_toEndOf="@+id/scoreContainer" 
+        app:layout_constraintTop_toTopOf="parent"^> 
+        ^<TextView 
+            android:layout_width="match_parent" 
+            android:layout_height="wrap_content" 
+            android:fontFamily="sans-serif-medium" 
+            android:gravity="center" 
+            android:text="HIGH SCORE" 
+            android:textColor="#8A8A8E" 
+            android:textSize="16sp" /^> 
+        ^<TextView 
+            android:id="@+id/tvHighScore" 
+            android:layout_width="match_parent" 
+            android:layout_height="wrap_content" 
+            android:fontFamily="sans-serif-black" 
+            android:gravity="center" 
+            android:text="0" 
+            android:textColor="#E5E5E7" 
+            android:textSize="24sp" /^> 
+    ^</LinearLayout^> 
+    ^<-- New Game Button --^> 
+    ^<Button 
+        android:id="@+id/btnNewGame" 
+        android:layout_width="wrap_content" 
+        android:layout_height="0dp" 
+        android:layout_marginStart="8dp" 
+        android:layout_marginTop="32dp" 
+        android:backgroundTint="#0A84FF" 
+        android:fontFamily="sans-serif-medium" 
+        android:text="New Game" 
+        android:textAllCaps="false" 
+        app:cornerRadius="12dp" 
+        app:layout_constraintBottom_toBottomOf="@+id/highScoreContainer" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toEndOf="@+id/highScoreContainer" 
+        app:layout_constraintTop_toTopOf="parent" /^> 
+    ^<-- Game Board --^> 
+    ^<GridView 
+        android:id="@+id/gameGrid" 
+        android:layout_width="0dp" 
+        android:layout_height="0dp" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginTop="32dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginBottom="32dp" 
+        android:background="@drawable/rounded_corner_view" 
+        android:backgroundTint="#48484A" 
+        android:numColumns="4" 
+        android:padding="8dp" 
+        app:layout_constraintBottom_toBottomOf="parent" 
+        app:layout_constraintDimensionRatio="1:1" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@id/highScoreContainer" 
+        app:layout_constraintVertical_bias="0.2" /^> 
+^</androidx.constraintlayout.widget.ConstraintLayout^> 
+</pre> 
+<h2></h2> 
+<h2>activity_game_menu.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:id="@+id/main" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:background="#1C1C1E" 
+    tools:context=".GameMenuActivity"^> 
+    ^<-- Game Title --^> 
+    ^<TextView 
+        android:id="@+id/tvGameTitle" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginTop="80dp" 
+        android:layout_marginEnd="24dp" 
+        android:fontFamily="sans-serif-black" 
+        android:text="2048" 
+        android:textColor="#E5E5E7" 
+        android:textSize="48sp" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toTopOf="parent" /^> 
+    ^<-- Welcome Subtitle --^> 
+    ^<TextView 
+        android:id="@+id/tvSubtitle" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginTop="8dp" 
+        android:fontFamily="sans-serif" 
+        android:text="Choose an Option" 
+        android:textColor="#8A8A8E" 
+        android:textSize="20sp" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@+id/tvGameTitle" /^> 
+    ^<-- Main Action Card for Playing the Game --^> 
+    ^<androidx.cardview.widget.CardView 
+        android:id="@+id/playgame" 
+        android:layout_width="0dp" 
+        android:layout_height="100dp" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginTop="32dp" 
+        android:layout_marginEnd="24dp" 
+        android:clickable="true" 
+        android:focusable="true" 
+        android:foreground="?android:attr/selectableItemBackground" 
+        app:cardBackgroundColor="#2C2C2E" 
+        app:cardCornerRadius="20dp" 
+        app:cardElevation="0dp" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitle"^> 
+        ^<androidx.constraintlayout.widget.ConstraintLayout 
+            android:layout_width="match_parent" 
+            android:layout_height="match_parent"^> 
+            ^<TextView 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_marginStart="24dp" 
+                android:fontFamily="sans-serif-medium" 
+                android:text="Play Game" 
+                android:textColor="#E5E5E7" 
+                android:textSize="22sp" 
+                app:layout_constraintBottom_toBottomOf="parent" 
+                app:layout_constraintStart_toStartOf="parent" 
+                app:layout_constraintTop_toTopOf="parent" /^> 
+        ^</androidx.constraintlayout.widget.ConstraintLayout^> 
+    ^</androidx.cardview.widget.CardView^> 
+    ^< High Scores Card --^> 
+    ^<androidx.cardview.widget.CardView 
+        android:id="@+id/cvHighScores" 
+        android:layout_width="0dp" 
+        android:layout_height="100dp" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginTop="16dp" 
+        android:layout_marginEnd="24dp" 
+        android:clickable="true" 
+        android:focusable="true" 
+        android:foreground="?android:attr/selectableItemBackground" 
+        app:cardBackgroundColor="#2C2C2E" 
+        app:cardCornerRadius="20dp" 
+        app:cardElevation="0dp" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@+id/playgame"^> 
+        ^<androidx.constraintlayout.widget.ConstraintLayout 
+            android:layout_width="match_parent" 
+            android:layout_height="match_parent"^> 
+            ^<TextView 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_marginStart="24dp" 
+                android:fontFamily="sans-serif-medium" 
+                android:text="High Scores" 
+                android:textColor="#E5E5E7" 
+                android:textSize="22sp" 
+                app:layout_constraintBottom_toBottomOf="parent" 
+                app:layout_constraintStart_toStartOf="parent" 
+                app:layout_constraintTop_toTopOf="parent" /^> 
+        ^</androidx.constraintlayout.widget.ConstraintLayout^> 
+    ^</androidx.cardview.widget.CardView^> 
+    ^< Game Options Card --^> 
+    ^<androidx.cardview.widget.CardView 
+        android:id="@+id/cvGameOptions" 
+        android:layout_width="0dp" 
+        android:layout_height="100dp" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginTop="16dp" 
+        android:layout_marginEnd="24dp" 
+        android:clickable="true" 
+        android:focusable="true" 
+        android:foreground="?android:attr/selectableItemBackground" 
+        app:cardBackgroundColor="#2C2C2E" 
+        app:cardCornerRadius="20dp" 
+        app:cardElevation="0dp" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@+id/cvHighScores"^> 
+        ^<androidx.constraintlayout.widget.ConstraintLayout 
+            android:layout_width="match_parent" 
+            android:layout_height="match_parent"^> 
+            ^<TextView 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_marginStart="24dp" 
+                android:fontFamily="sans-serif-medium" 
+                android:text="Game Options" 
+                android:textColor="#E5E5E7" 
+                android:textSize="22sp" 
+                app:layout_constraintBottom_toBottomOf="parent" 
+                app:layout_constraintStart_toStartOf="parent" 
+                app:layout_constraintTop_toTopOf="parent" /^> 
+        ^</androidx.constraintlayout.widget.ConstraintLayout^> 
+    ^</androidx.cardview.widget.CardView^> 
+    ^<-- A simple text button for signing out --^> 
+    ^<Button 
+        android:id="@+id/signOut" 
+        style="@style/Widget.AppCompat.Button.Borderless" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_marginBottom="24dp" 
+        android:fontFamily="sans-serif-medium" 
+        android:text="Sign Out" 
+        android:textAllCaps="false" 
+        android:textColor="#0A84FF" 
+        android:textSize="16sp" 
+        app:layout_constraintBottom_toBottomOf="parent" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+^</androidx.constraintlayout.widget.ConstraintLayout^> 
+</pre> 
+<h2></h2> 
+<h2>activity_game_options.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:background="#1C1C1E" 
+    android:orientation="vertical" 
+    android:padding="24dp"^> 
+    ^<-- Header Spacer (Pushes content down) --^> 
+    ^<View 
+        android:layout_width="match_parent" 
+        android:layout_height="0dp" 
+        android:layout_weight="0.75" /^> 
+    ^<-- Title Section --^> 
+    ^<TextView 
+        android:id="@+id/tvOptionsTitle" 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content" 
+        android:fontFamily="sans-serif-black" 
+        android:gravity="center" 
+        android:text="SETTINGS" 
+        android:textColor="#FFFFFF" 
+        android:textSize="36sp" 
+        android:letterSpacing="0.1" /^> 
+    ^<View 
+        android:layout_width="match_parent" 
+        android:layout_height="100dp" /^> 
+    ^<-- Volume Control Container (CardView for the rounded background) --^> 
+    ^<androidx.cardview.widget.CardView 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content" 
+        app:cardBackgroundColor="#2C2C2E" 
+        app:cardCornerRadius="24dp" 
+        app:cardElevation="0dp"^> 
+        ^<LinearLayout 
+            android:layout_width="match_parent" 
+            android:layout_height="wrap_content" 
+            android:orientation="vertical" 
+            android:padding="24dp"^> 
+            ^<-- Label and Percentage Row --^> 
+            ^<LinearLayout 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content" 
+                android:orientation="horizontal"^> 
+                ^<TextView 
+                    android:layout_width="0dp" 
+                    android:layout_height="wrap_content" 
+                    android:layout_weight="1" 
+                    android:fontFamily="sans-serif-medium" 
+                    android:text="Music Volume" 
+                    android:textColor="#E5E5E7" 
+                    android:textSize="25sp" /^> 
+                ^<TextView 
+                    android:id="@+id/tvVolumePercentage" 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content" 
+                    android:fontFamily="sans-serif-black" 
+                    android:text="100%" 
+                    android:textColor="#0A84FF" 
+                    android:textSize="25sp" /^> 
+            ^</LinearLayout^> 
+            ^<-- The Thicker Slider --^> 
+            ^<SeekBar 
+                android:id="@+id/sbVolume" 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content" 
+                android:layout_marginTop="24dp" 
+                android:max="100" 
+                android:progress="100" 
+                android:minHeight="12dp" 
+                android:maxHeight="12dp" 
+                android:progressTint="#0A84FF" 
+                android:thumbTint="#FFFFFF" 
+                android:splitTrack="false"/^> 
+        ^</LinearLayout^> 
+    ^</androidx.cardview.widget.CardView^> 
+    ^<-- Info Text --^> 
+    ^<TextView 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="16dp" 
+        android:gravity="center" 
+        android:text="Changes are applied immediately" 
+        android:textColor="#8E8E93" 
+        android:textSize="15sp" /^> 
+    ^<-- Bottom Spacer (Pushes button to the bottom) --^> 
+    ^<View 
+        android:layout_width="match_parent" 
+        android:layout_height="0dp" 
+        android:layout_weight="2" /^> 
+    ^<-- Back to Menu Button --^> 
+    ^<Button 
+        android:id="@+id/btnBackToMenu" 
+        android:layout_width="match_parent" 
+        android:layout_height="64dp" 
+        android:backgroundTint="#2C2C2E" 
+        android:fontFamily="sans-serif-black" 
+        android:text="BACK TO MENU" 
+        android:textColor="#FFFFFF" 
+        android:textSize="16sp" 
+        app:cornerRadius="16dp" 
+        app:strokeColor="#3A3A3C" 
+        app:strokeWidth="1dp" /^> 
+^</LinearLayout^> 
+</pre> 
+<h2></h2> 
+<h2>activity_high_scores.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:background="#121212" 
+    tools:context=".HighScoresActivity"^> 
+    ^<-- Header Section --^> 
+    ^<TextView 
+        android:id="@+id/headerTitle" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:gravity="center" 
+        android:paddingTop="24dp" 
+        android:paddingBottom="12dp" 
+        android:text="LEADERBOARD" 
+        android:textColor="@color/white" 
+        android:textSize="26sp" 
+        android:textStyle="bold" 
+        android:letterSpacing="0.05" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toTopOf="parent" /^> 
+    ^<-- Sorting Toggle Button --^> 
+    ^<com.google.android.material.button.MaterialButton 
+        android:id="@+id/btnSortToggle" 
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="8dp" 
+        android:text="Sort: High Score" 
+        android:textColor="@color/blue" 
+        android:textAllCaps="false" 
+        app:strokeColor="@color/blue" 
+        app:iconTint="@color/blue" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@id/headerTitle" /^> 
+    ^<-- List of Scores --^> 
+    ^<-- Back Button --^> 
+    ^<androidx.recyclerview.widget.RecyclerView 
+        android:id="@+id/rvHighScores" 
+        android:layout_width="0dp" 
+        android:layout_height="0dp" 
+        android:layout_marginTop="8dp" 
+        android:layout_marginBottom="8dp" 
+        android:clipToPadding="false" 
+        android:paddingVertical="8dp" 
+        app:layout_constraintBottom_toTopOf="@id/btnBack" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintHorizontal_bias="0.0" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@id/btnSortToggle" 
+        app:layout_constraintVertical_bias="0.0" 
+        tools:listitem="@layout/item_player_score" /^> 
+    ^<com.google.android.material.button.MaterialButton 
+        android:id="@+id/btnBack" 
+        style="@style/Widget.MaterialComponents.Button" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="32dp" 
+        android:layout_marginEnd="32dp" 
+        android:layout_marginBottom="16dp" 
+        android:padding="8dp" 
+        android:text="Back" 
+        android:textAllCaps="true" 
+        android:textSize="24sp" 
+        app:backgroundTint="@color/blue" 
+        app:cornerRadius="24dp" 
+        app:layout_constraintBottom_toBottomOf="parent" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+^</androidx.constraintlayout.widget.ConstraintLayout^> 
+</pre> 
+<h2></h2> 
+<h2>activity_main_menu.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:id="@+id/main" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:background="#1C1C1E" 
+    tools:context=".MainMenuActivity"^> 
+    ^<-- Centering Guideline --^> 
+    ^<androidx.constraintlayout.widget.Guideline 
+        android:id="@+id/guideline_center" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal" 
+        app:layout_constraintGuide_percent="0.4" /^> 
+    ^<-- Welcome Text --^> 
+    ^<TextView 
+        android:id="@+id/welcome_text" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:fontFamily="sans-serif" 
+        android:text="Welcome to" 
+        android:textColor="#8A8A8E" 
+        android:textSize="40sp" 
+        app:layout_constraintBottom_toTopOf="@id/game_title_text" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+    ^<-- Game Title --^> 
+    ^<TextView 
+        android:id="@+id/game_title_text" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:fontFamily="sans-serif-black" 
+        android:text="2048" 
+        android:textColor="#E5E5E7" 
+        android:textSize="80sp" 
+        app:layout_constraintBottom_toTopOf="@id/guideline_center" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+    ^<-- Sign Up Button (Primary Action) --^> 
+    ^<Button 
+        android:id="@+id/sign_up_button" 
+        android:layout_width="0dp" 
+        android:layout_height="60dp" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginBottom="16dp" 
+        android:backgroundTint="#0A84FF" 
+        android:fontFamily="sans-serif-medium" 
+        android:text="Sign Up" 
+        android:textAllCaps="false" 
+        android:textColor="@android:color/white" 
+        android:textSize="18sp" 
+        app:cornerRadius="12dp" 
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_button" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+    ^<-- Sign In Button --^> 
+    ^<Button 
+        android:id="@+id/sign_in_button" 
+        android:layout_width="0dp" 
+        android:layout_height="60dp" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginBottom="32dp" 
+        android:backgroundTint="#0A84FF" 
+        android:fontFamily="sans-serif-medium" 
+        android:text="Sign In" 
+        android:textAllCaps="false" 
+        android:textColor="@android:color/white" 
+        android:textSize="18sp" 
+        app:cornerRadius="12dp" 
+        app:layout_constraintBottom_toBottomOf="parent" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+^</androidx.constraintlayout.widget.ConstraintLayout^> 
+</pre> 
+<h2></h2> 
+<h2>activity_signin.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:background="#1C1C1E" 
+    android:id="@+id/main" 
+    tools:context=".SigninActivity"^> 
+    ^<-- Screen Title --^> 
+    ^<TextView 
+        android:id="@+id/tvSignInTitle" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginTop="80dp" 
+        android:fontFamily="sans-serif-black" 
+        android:text="Welcome Back" 
+        android:textColor="#E5E5E7" 
+        android:textSize="44sp" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toTopOf="parent" /^> 
+    ^<-- Subtitle --^> 
+    ^<TextView 
+        android:id="@+id/tvSignInSubtitle" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginTop="8dp" 
+        android:fontFamily="sans-serif" 
+        android:text="Sign in to continue" 
+        android:textColor="#8A8A8E" 
+        android:textSize="20sp" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@+id/tvSignInTitle" /^> 
+    ^<-- Input Fields Container --^> 
+    ^<LinearLayout 
+        android:id="@+id/llInputContainer" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginTop="40dp" 
+        android:orientation="vertical" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@+id/tvSignInSubtitle"^> 
+        ^<-- Email Input --^> 
+        ^<EditText 
+            android:id="@+id/email" 
+            android:layout_width="match_parent" 
+            android:layout_height="55dp" 
+            android:background="@drawable/dark_edit_text_background" 
+            android:hint="Email" 
+            android:inputType="textEmailAddress" 
+            android:paddingStart="20dp" 
+            android:paddingEnd="20dp" 
+            android:textColor="#E5E5E7" 
+            android:textColorHint="#8A8A8E" 
+            android:textSize="16sp" /^> 
+        ^<-- Password Input --^> 
+        ^<EditText 
+            android:id="@+id/password" 
+            android:layout_width="match_parent" 
+            android:layout_height="55dp" 
+            android:layout_marginTop="16dp" 
+            android:background="@drawable/dark_edit_text_background" 
+            android:hint="Password" 
+            android:inputType="textPassword" 
+            android:paddingStart="20dp" 
+            android:paddingEnd="20dp" 
+            android:textColor="#E5E5E7" 
+            android:textColorHint="#8A8A8E" 
+            android:textSize="16sp" /^> 
+    ^</LinearLayout^> 
+    ^<-- Sign In Button --^> 
+    ^<Button 
+        android:id="@+id/signin_button" 
+        android:layout_width="0dp" 
+        android:layout_height="60dp" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginBottom="16dp" 
+        android:backgroundTint="#0A84FF" 
+        android:fontFamily="sans-serif-medium" 
+        android:text="Sign In" 
+        android:textAllCaps="false" 
+        android:textColor="@android:color/white" 
+        android:textSize="18sp" 
+        app:cornerRadius="12dp" 
+        app:layout_constraintBottom_toTopOf="@+id/goto_signup" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+    ^<-- "Go to Sign Up" Text Button --^> 
+    ^<TextView 
+        android:id="@+id/goto_signup" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_marginBottom="32dp" 
+        android:fontFamily="sans-serif" 
+        android:padding="8dp" 
+        android:text="Don't have an account? Sign Up" 
+        android:textColor="@color/blue" 
+        android:textSize="16sp" 
+        app:layout_constraintBottom_toBottomOf="parent" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+^</androidx.constraintlayout.widget.ConstraintLayout^> 
+</pre> 
+<h2></h2> 
+<h2>activity_signup.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:background="#1C1C1E" 
+    android:id="@+id/main" 
+    tools:context=".SignupActivity"^> 
+    ^<-- Screen Title --^> 
+    ^<TextView 
+        android:id="@+id/tvSignUpTitle" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginTop="80dp" 
+        android:fontFamily="sans-serif-black" 
+        android:text="Create Account" 
+        android:textColor="#E5E5E7" 
+        android:textSize="44sp" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toTopOf="parent" /^> 
+    ^<-- Subtitle --^> 
+    ^<TextView 
+        android:id="@+id/tvSignUpSubtitle" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginTop="8dp" 
+        android:fontFamily="sans-serif" 
+        android:text="Let's get you started" 
+        android:textColor="#8A8A8E" 
+        android:textSize="20sp" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@+id/tvSignUpTitle" /^> 
+    ^<-- Input Fields Container --^> 
+    ^<LinearLayout 
+        android:id="@+id/llInputContainer" 
+        android:layout_width="0dp" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginTop="40dp" 
+        android:orientation="vertical" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" 
+        app:layout_constraintTop_toBottomOf="@+id/tvSignUpSubtitle"^> 
+        ^< Added Username Input --^> 
+        ^<EditText 
+            android:id="@+id/username" 
+            android:layout_width="match_parent" 
+            android:layout_height="55dp" 
+            android:background="@drawable/dark_edit_text_background" 
+            android:hint="Username" 
+            android:inputType="textPersonName" 
+            android:paddingStart="20dp" 
+            android:paddingEnd="20dp" 
+            android:textColor="#E5E5E7" 
+            android:textColorHint="#8A8A8E" 
+            android:textSize="16sp" /^> 
+        ^< Added Username Input --^> 
+        ^<-- Email Input --^> 
+        ^<EditText 
+            android:id="@+id/email" 
+            android:layout_width="match_parent" 
+            android:layout_height="55dp" 
+            android:layout_marginTop="16dp" 
+            android:background="@drawable/dark_edit_text_background" 
+            android:hint="Email" 
+            android:inputType="textEmailAddress" 
+            android:paddingStart="20dp" 
+            android:paddingEnd="20dp" 
+            android:textColor="#E5E5E7" 
+            android:textColorHint="#8A8A8E" 
+            android:textSize="16sp" /^> 
+        ^<-- Password Input --^> 
+        ^<EditText 
+            android:id="@+id/password" 
+            android:layout_width="match_parent" 
+            android:layout_height="55dp" 
+            android:layout_marginTop="16dp" 
+            android:background="@drawable/dark_edit_text_background" 
+            android:hint="Password" 
+            android:inputType="textPassword" 
+            android:paddingStart="20dp" 
+            android:paddingEnd="20dp" 
+            android:textColor="#E5E5E7" 
+            android:textColorHint="#8A8A8E" 
+            android:textSize="16sp" /^> 
+    ^</LinearLayout^> 
+    ^<-- Sign Up Button --^> 
+    ^<Button 
+        android:id="@+id/signup_button" 
+        android:layout_width="0dp" 
+        android:layout_height="60dp" 
+        android:layout_marginStart="24dp" 
+        android:layout_marginEnd="24dp" 
+        android:layout_marginBottom="16dp" 
+        android:backgroundTint="#0A84FF" 
+        android:fontFamily="sans-serif-medium" 
+        android:text="Sign Up" 
+        android:textAllCaps="false" 
+        android:textColor="@android:color/white" 
+        android:textSize="18sp" 
+        app:cornerRadius="12dp" 
+        app:layout_constraintBottom_toTopOf="@+id/goto_signin" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+    ^<-- "Go to Sign In" Text Button --^> 
+    ^<TextView 
+        android:id="@+id/goto_signin" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_marginBottom="32dp" 
+        android:fontFamily="sans-serif" 
+        android:padding="8dp" 
+        android:text="Already have an account? Sign In" 
+        android:textColor="@color/blue" 
+        android:textSize="16sp" 
+        app:layout_constraintBottom_toBottomOf="parent" 
+        app:layout_constraintEnd_toEndOf="parent" 
+        app:layout_constraintStart_toStartOf="parent" /^> 
+^</androidx.constraintlayout.widget.ConstraintLayout^> 
+</pre> 
+<h2></h2> 
+<h2>item_player_score.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    android:layout_width="match_parent" 
+    android:layout_height="wrap_content" 
+    android:layout_marginHorizontal="16dp" 
+    android:layout_marginVertical="6dp" 
+    app:cardBackgroundColor="#1E1E1E" 
+    app:cardCornerRadius="12dp" 
+    app:cardElevation="4dp"^> 
+    ^<androidx.constraintlayout.widget.ConstraintLayout 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content" 
+        android:padding="16dp"^> 
+        ^<TextView 
+            android:id="@+id/tvRank" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:text="#1" 
+            android:textColor="@color/blue" 
+            android:textSize="18sp" 
+            android:textStyle="bold" 
+            app:layout_constraintBottom_toBottomOf="parent" 
+            app:layout_constraintStart_toStartOf="parent" 
+            app:layout_constraintTop_toTopOf="parent" /^> 
+        ^<LinearLayout 
+            android:layout_width="0dp" 
+            android:layout_height="wrap_content" 
+            android:layout_marginStart="16dp" 
+            android:orientation="vertical" 
+            app:layout_constraintBottom_toBottomOf="parent" 
+            app:layout_constraintEnd_toStartOf="@id/tvScore" 
+            app:layout_constraintStart_toEndOf="@id/tvRank" 
+            app:layout_constraintTop_toTopOf="parent"^> 
+            ^<TextView 
+                android:id="@+id/tvUsername" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:text="Username" 
+                android:textColor="#FFFFFF" 
+                android:textSize="18sp" 
+                android:textStyle="bold" /^> 
+            ^<TextView 
+                android:id="@+id/tvGamesPlayed" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:text="Games: 0" 
+                android:textStyle="bold" 
+                android:textColor="@color/white" 
+                android:textSize="13sp" /^> 
+        ^</LinearLayout^> 
+        ^<TextView 
+            android:id="@+id/tvScore" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:text="0" 
+            android:textColor="@color/blue" 
+            android:textSize="20sp" 
+            android:textStyle="bold" 
+            app:layout_constraintBottom_toBottomOf="parent" 
+            app:layout_constraintEnd_toEndOf="parent" 
+            app:layout_constraintTop_toTopOf="parent" /^> 
+    ^</androidx.constraintlayout.widget.ConstraintLayout^> 
+^</androidx.cardview.widget.CardView^> 
+</pre> 
+<h2></h2> 
+<h2>ic_launcher.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"^> 
+    ^<background android:drawable="@drawable/ic_launcher_background" /^> 
+    ^<foreground android:drawable="@drawable/ic_launcher_foreground" /^> 
+    ^<monochrome android:drawable="@drawable/ic_launcher_foreground" /^> 
+^</adaptive-icon^> 
+</pre> 
+<h2></h2> 
+<h2>ic_launcher_round.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"^> 
+    ^<background android:drawable="@drawable/ic_launcher_background" /^> 
+    ^<foreground android:drawable="@drawable/ic_launcher_foreground" /^> 
+    ^<monochrome android:drawable="@drawable/ic_launcher_foreground" /^> 
+^</adaptive-icon^> 
+</pre> 
+<h2></h2> 
+<h2>colors.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^> 
+^<resources^> 
+    ^<color name="black"^>#FF000000^</color^> 
+    ^<color name="white"^>#FFFFFFFF^</color^> 
+    ^<color name="blue"^>#0A84FF^</color^> 
+^</resources^> 
+</pre> 
+<h2></h2> 
+<h2>strings.xml</h2> 
+<pre> 
+^<resources^> 
+    ^<string name="app_name"^>My Application^</string^> 
+^</resources^> 
+</pre> 
+<h2></h2> 
+<h2>themes.xml</h2> 
+<pre> 
+^<resources^> 
+    ^<-- Base application theme. --^> 
+    ^<style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar"^> 
+        ^<-- Customize your light theme here. --^> 
+        ^<-- ^<item name="colorPrimary"^>@color/my_light_primary^</item^> --^> 
+    ^</style^> 
+    ^<style name="Theme.MyApplication" parent="Base.Theme.MyApplication" /^> 
+    ^<-- In res/values/themes.xml --^> 
+    ^<style name="Base.Theme.My_Application" parent="Theme.MaterialComponents.DayNight.NoActionBar"^>^</style^> 
+^</resources^> 
+</pre> 
+<h2></h2> 
+<h2>themes.xml</h2> 
+<pre> 
+^<resources^> 
+    ^<-- Base application theme. --^> 
+    ^<style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar"^> 
+        ^<-- Customize your dark theme here. --^> 
+        ^<-- ^<item name="colorPrimary"^>@color/my_dark_primary^</item^> --^> 
+    ^</style^> 
+^</resources^> 
+</pre> 
+<h2></h2> 
+<h2>backup_rules.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^>^<-- 
+   Sample backup rules file; uncomment and customize as necessary. 
+   See https://developer.android.com/guide/topics/data/autobackup 
+   for details. 
+   Note: This file is ignored for devices older than API 31 
+   See https://developer.android.com/about/versions/12/backup-restore 
+--^> 
+^<full-backup-content^> 
+    ^<-- 
+   ^<include domain="sharedpref" path="."/^> 
+   ^<exclude domain="sharedpref" path="device.xml"/^> 
+--^> 
+^</full-backup-content^> 
+</pre> 
+<h2></h2> 
+<h2>data_extraction_rules.xml</h2> 
+<pre> 
+^<?xml version="1.0" encoding="utf-8"?^>^<-- 
+   Sample data extraction rules file; uncomment and customize as necessary. 
+   See https://developer.android.com/about/versions/12/backup-restore#xml-changes 
+   for details. 
+--^> 
+^<data-extraction-rules^> 
+    ^<cloud-backup^> 
+        ^< Use ^<include^> and ^<exclude^> to control what is backed up. 
+        ^<include .../^> 
+        ^<exclude .../^> 
+        --^> 
+    ^</cloud-backup^> 
+    ^<-- 
+    ^<device-transfer^> 
+        ^<include .../^> 
+        ^<exclude .../^> 
+    ^</device-transfer^> 
+    --^> 
+^</data-extraction-rules^> 
+</pre> 
+</body></html> 

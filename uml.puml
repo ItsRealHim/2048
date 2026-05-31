@@ -1,0 +1,224 @@
+@startuml
+class com.example.myapplication.GameMenuActivity {
+- CardView playGame
+- CardView cvGameOptions
+- TextView signOut
+# void onCreate(Bundle)
++ void onClick(View)
+}
+
+
+class com.example.myapplication.MusicService {
+- ExoPlayer player
+- AudioManager audioManager
+- AudioFocusRequest audioFocusRequest
+- float currentVolume
+- boolean wasPlayingBeforeLoss
+- IBinder binder
++ IBinder onBind(Intent)
++ void onCreate()
++ int onStartCommand(Intent,int,int)
++ void onDestroy()
+- void initPlayer()
+- void releasePlayer()
++ void setVolume(float)
++ float getVolume()
++ boolean isPlaying()
++ void play()
++ void pause()
++ void onAudioFocusChange(int)
+- boolean requestAudioFocus()
+- void abandonAudioFocus()
+}
+
+
+class com.example.myapplication.MusicService$MusicBinder {
++ MusicService getService()
+}
+
+class com.example.myapplication.SigninActivity {
+- TextView tVMsg
+- EditText eTPass
+- EditText eTEmail
+- Button signIn
+- TextView gotoSignUp
+# void onCreate(Bundle)
++ void onClick(View)
+}
+
+
+class com.example.myapplication.SignupActivity {
+- EditText eTEmail
+- EditText eTPass
+- EditText username
+- Button signUp
+- TextView gotoSignin
+# void onCreate(Bundle)
++ void onClick(View)
+}
+
+
+class com.example.myapplication.TileAdapter {
+- Context context
+- int[][] board
++ <<Create>> TileAdapter(Context,int[][])
++ int getCount()
++ Object getItem(int)
++ long getItemId(int)
++ View getView(int,View,ViewGroup)
+- int getTileColor(int)
+}
+
+
+class com.example.myapplication.GameModel {
+- {static} int size
+- int[][] board
+- Random random
+- int score
++ <<Create>> GameModel()
++ int[][] getBoard()
++ int getScore()
++ void startNewGame()
++ void addNewTile()
++ boolean handleSwipe(Direction)
+- void slideAndMerge()
+- void mirrorRows()
+- void rotateBoard(int)
++ boolean isGameOver()
+}
+
+
+enum com.example.myapplication.Direction {
++  UP
++  DOWN
++  LEFT
++  RIGHT
+}
+
+class com.example.myapplication.FBRef {
++ {static} FirebaseAuth refAuth
++ {static} FirebaseDatabase database
++ {static} DatabaseReference refPlayer
+}
+
+class com.example.myapplication.GameOptionsActivity {
+- MusicService musicService
+- boolean isBound
+- TextView tvVolumePercentage
+- SeekBar seekBarVolume
+- TextView btnBackToMenu
+- ServiceConnection serviceConnection
+- void setVisualVolume(float)
+# void onCreate(Bundle)
+# void onStart()
+# void onStop()
++ void onClick(View)
+}
+
+
+class com.example.myapplication.GameActivity {
+- boolean hasShownGameOver
+- TextToSpeech tts
+- GridView gameGrid
+- TextView tvScore
+- TextView tvHighScore
+- Button btnNewGame
+- GameModel gameModel
+- TileAdapter tileAdapter
+- GestureDetectorCompat gestureDetector
+- int highScore
+# void onCreate(Bundle)
+- void incrementGameCount()
+- void startNewGame()
+- void handleSwipe(Direction)
+- void updateScore()
+# void onDestroy()
+- void setupGestureDetector()
+}
+
+
+class com.example.myapplication.MainMenuActivity {
+~ Button signInButton
+# void onCreate(Bundle)
+}
+
+
+class com.example.myapplication.HighScoresActivity {
+- {static} String TAG
+- RecyclerView rvHighScores
+- Button btnBack
+- Button btnSortToggle
+- List<Player> highScoresList
+- ScoreAdapter adapter
+- boolean isSortByHighScore
+# void onCreate(Bundle)
+- void toggleSorting()
+- void applySort()
+- void fetchScores()
+}
+
+
+class com.example.myapplication.HighScoresActivity$ScoreAdapter {
+- List<Player> players
++ <<Create>> ScoreAdapter(List<Player>)
++ ScoreViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ScoreViewHolder,int)
++ int getItemCount()
+}
+
+
+class com.example.myapplication.HighScoresActivity$ScoreAdapter$ScoreViewHolder {
+~ TextView tvRank
++ <<Create>> ScoreViewHolder(View)
+}
+
+
+class com.example.myapplication.SquareTextView {
++ <<Create>> SquareTextView(Context)
++ <<Create>> SquareTextView(Context,AttributeSet)
++ <<Create>> SquareTextView(Context,AttributeSet,int)
+# void onMeasure(int,int)
+}
+
+class com.example.myapplication.Player {
+- String username
+- int highScore
+- int gamesPlayed
+- String PlayerID
++ <<Create>> Player()
++ <<Create>> Player(String)
++ int getHighScore()
++ void setHighScore(int)
++ String getPlayerID()
++ void setPlayerID(String)
++ int getGamesPlayed()
++ void setGamesPlayed(int)
++ String getUsername()
++ void setUsername(String)
+}
+
+
+
+
+com.example.myapplication.OnClickListener <|.. com.example.myapplication.GameMenuActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplication.GameMenuActivity
+com.example.myapplication.OnAudioFocusChangeListener <|.. com.example.myapplication.MusicService
+android.app.Service <|-- com.example.myapplication.MusicService
+com.example.myapplication.MusicService +.. com.example.myapplication.MusicService$MusicBinder
+com.example.myapplication.Binder <|-- com.example.myapplication.MusicService$MusicBinder
+com.example.myapplication.OnClickListener <|.. com.example.myapplication.SigninActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplication.SigninActivity
+com.example.myapplication.OnClickListener <|.. com.example.myapplication.SignupActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplication.SignupActivity
+android.widget.BaseAdapter <|-- com.example.myapplication.TileAdapter
+com.example.myapplication.OnClickListener <|.. com.example.myapplication.GameOptionsActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplication.GameOptionsActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplication.GameActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplication.MainMenuActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplication.HighScoresActivity
+com.example.myapplication.HighScoresActivity +.. com.example.myapplication.HighScoresActivity$ScoreAdapter
+com.example.myapplication.Adapter <|-- com.example.myapplication.HighScoresActivity$ScoreAdapter
+com.example.myapplication.HighScoresActivity$ScoreAdapter +.. com.example.myapplication.HighScoresActivity$ScoreAdapter$ScoreViewHolder
+com.example.myapplication.ViewHolder <|-- com.example.myapplication.HighScoresActivity$ScoreAdapter$ScoreViewHolder
+androidx.appcompat.widget.AppCompatTextView <|-- com.example.myapplication.SquareTextView
+@enduml

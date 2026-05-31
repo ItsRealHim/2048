@@ -21,23 +21,6 @@ public class Player {
         this.PlayerID = "0";
     }
 
-    public Map<String, Object> getMap() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("username", username);
-        map.put("highScore", highScore);
-        map.put("gamesPlayed", gamesPlayed);
-        map.put("PlayerID", PlayerID);
-        return map;
-    }
-
-    public static Player mapToPlayer(Map<String, Object> map) {
-        Player p = new Player();
-        p.setUsername((String) map.get("username"));
-        p.setHighScore((Integer) map.get("highScore"));
-        p.setGamesPlayed((Integer) map.get("gamesPlayed"));
-        p.setPlayerID((String) map.get("PlayerID"));
-        return p;
-    }
 
     public int getHighScore() {
         return highScore;
