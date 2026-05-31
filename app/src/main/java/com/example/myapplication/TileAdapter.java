@@ -19,13 +19,13 @@ public class TileAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 16; // 4x4 grid
+        return board.length*board.length; // 4x4 grid
     }
 
     @Override
     public Object getItem(int position) {
-        int row = position / 4;
-        int col = position % 4;
+        int row = position / board.length;
+        int col = position % board.length;
         return board[row][col];
     }
 
@@ -66,7 +66,7 @@ public class TileAdapter extends BaseAdapter {
         return textView;
     }
 
-    // Maps tile values to their specific background colors (this method is unchanged)
+    // Maps tile values to their specific background colors
     private int getTileColor(int value) {
         switch (value) {
             case 2:
