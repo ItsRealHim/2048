@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
 
@@ -66,7 +67,7 @@ public class GameActivity extends AppCompatActivity {
             });
             btnReturn = findViewById(R.id.btnReturn);
             btnReturn.setOnClickListener(v -> {
-                new androidx.appcompat.app.AlertDialog.Builder(this)
+                new AlertDialog.Builder(this)
                         .setTitle("Exit Game")
                         .setMessage("Are you sure you wish to leave the game?")
                         .setPositiveButton("Yes", (dialog, which) -> {
