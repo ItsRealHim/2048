@@ -4,6 +4,7 @@ import static com.example.myapplication.FBRef.refAuth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,6 +55,13 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 
         gotoSignUp.setOnClickListener(this);
         signIn.setOnClickListener(this);
+
+        // Read the last used email from SharedPreferences
+        android.content.SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String lastEmail = preferences.getString("last_email", "");
+        if (!lastEmail.isEmpty()) {
+            eTEmail.setText(lastEmail);
+        }
     }
 
 
@@ -74,12 +82,19 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         pd.dismiss();
                         if (task.isSuccessful()) {
-                            Log.i("MainActivity", "createUserWithEmailAndPassword:success");
+                            // Save the email to SharedPreferences on successful login
+                            SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("last_email", email);
+                            editor.apply();
+
+                            Log.i("MainActivity", "signInWithEmailAndPassword:success");
                             Intent intent = new Intent(SigninActivity.this, GameMenuActivity.class);
                             startActivity(intent);
                             finish();
+                        }
 
-                        } else {
+                        else {
                             Exception exp = task.getException();
                             if (exp instanceof FirebaseAuthInvalidUserException) {
                                 Toast.makeText(SigninActivity.this, "Invalid email address.", Toast.LENGTH_SHORT).show();

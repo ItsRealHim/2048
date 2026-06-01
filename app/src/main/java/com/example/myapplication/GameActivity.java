@@ -30,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView tvScore;
     private TextView tvHighScore;
     private Button btnNewGame;
+    private Button btnReturn;
 
     // --- Logic and State Management ---
     private GameModel gameModel; // Use the GameModel for all game logic
@@ -62,6 +63,22 @@ public class GameActivity extends AppCompatActivity {
                     highScore = task.getResult().getValue(Integer.class);
                     tvHighScore.setText(String.valueOf(highScore));
                 }
+            });
+            btnReturn = findViewById(R.id.btnReturn);
+            btnReturn.setOnClickListener(v -> {
+                new androidx.appcompat.app.AlertDialog.Builder(this)
+                        .setTitle("Exit Game")
+                        .setMessage("Are you sure you wish to leave the game?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            // The user confirmed, so save and exit
+                            if (!hasShownGameOver) {
+                                incrementGameCount();
+                                updateScore();
+                            }
+                            finish();
+                        })
+                        .setNegativeButton("No", null) // "No" just closes the dialog
+                        .show();
             });
         }
         // Setup the adapter with the board from our model
