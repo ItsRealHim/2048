@@ -66,21 +66,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
             btnReturn = findViewById(R.id.btnReturn);
-            btnReturn.setOnClickListener(v -> {
-                new AlertDialog.Builder(this)
-                        .setTitle("Exit Game")
-                        .setMessage("Are you sure you wish to leave the game?")
-                        .setPositiveButton("Yes", (dialog, which) -> {
-                            // The user confirmed, so save and exit
-                            if (!hasShownGameOver) {
-                                incrementGameCount();
-                                updateScore();
-                            }
-                            finish();
-                        })
-                        .setNegativeButton("No", null) // "No" just closes the dialog
-                        .show();
-            });
+            btnReturn.setOnClickListener(v -> showExitConfirmation());
         }
         // Setup the adapter with the board from our model
         tileAdapter = new TileAdapter(this, gameModel.getBoard());
@@ -251,5 +237,25 @@ public class GameActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        // This overrides the system back button
+        showExitConfirmation();
+    }
+
+    private void showExitConfirmation() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Exit Game")
+                .setMessage("Are you sure you wish to leave the game?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    if (!hasShownGameOver) {
+                        incrementGameCount();
+                        updateScore();
+                    }
+                    finish(); // Close the activity
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }
